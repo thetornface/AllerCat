@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <pattern id="p" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
+      
+      <circle cx="10" cy="10" r="3.5" fill="#7E9160"></circle>
+      <circle cx="70" cy="10" r="3.5" fill="#7E9160"></circle>
+      <circle cx="10" cy="70" r="3.5" fill="#7E9160"></circle>
+      <circle cx="70" cy="70" r="3.5" fill="#7E9160"></circle>
+      
+      <rect x="35" y="5" width="10" height="10" fill="#C45A2D" transform="rotate(45 40 10)"></rect>
+      <rect x="95" y="5" width="10" height="10" fill="#C45A2D" transform="rotate(45 100 10)"></rect>
+      <rect x="35" y="65" width="10" height="10" fill="#C45A2D" transform="rotate(45 40 70)"></rect>
+      <rect x="95" y="65" width="10" height="10" fill="#C45A2D" transform="rotate(45 100 70)"></rect>
+      
+      <rect x="5" y="35" width="8" height="8" fill="#D18A2C" transform="rotate(45 9 39)"></rect>
+      <rect x="65" y="35" width="8" height="8" fill="#D18A2C" transform="rotate(45 69 39)"></rect>
+      <circle cx="40" cy="40" r="3" fill="#7E9160"></circle>
+      <circle cx="100" cy="40" r="3" fill="#7E9160"></circle>
+      <circle cx="40" cy="100" r="3" fill="#7E9160"></circle>
+      <circle cx="100" cy="100" r="3" fill="#7E9160"></circle>
+    </pattern>
+  </defs>
+  <rect width="120" height="120" fill="url(#p)"></rect>
+</svg>

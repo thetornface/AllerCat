@@ -1,0 +1,59 @@
+---
+interface Item {
+  title: string;
+  description?: string;
+  bullets?: string[];
+  items?: string[];
+}
+
+interface Section {
+  title: string;
+  layout?: 'two' | 'three';
+  tag?: string;
+  variant?: 'card' | 'service' | 'step';
+  items: Item[];
+}
+
+interface Props {
+  id?: string;
+  section: Section;
+}
+
+const { id, section } = Astro.props;
+const layout = section.layout ?? 'three';
+const gridClass = layout === 'two' ? 'grid grid-2' : 'grid grid-3';
+const variant = section.variant ?? 'card';
+const cardClass = variant === 'service' ? 'service-card' : variant === 'step' ? 'step-card' : 'card';
+---
+
+<section id={id}>
+  <h2>{section.title}</h2>
+  <div class={gridClass}>
+    {section.items.map((item, index) => (
+      <article class={cardClass}>
+        {section.tag && (
+          <span class="badge">{section.tag} {index + 1}</span>
+        )}
+        {variant === 'step' && (
+          <div class="step-card__number">{String(index + 1).padStart(2, '0')}</div>
+        )}
+        <h3>{item.title}</h3>
+        {item.description && <p>{item.description}</p>}
+        {item.items && item.items.length > 0 && (
+          <div class="tag-list">
+            {item.items.map((tag) => (
+              <span class="tag">{tag}</span>
+            ))}
+          </div>
+        )}
+        {item.bullets && item.bullets.length > 0 && (
+          <ul>
+            {item.bullets.map((bullet) => (
+              <li>{bullet}</li>
+            ))}
+          </ul>
+        )}
+      </article>
+    ))}
+  </div>
+</section>

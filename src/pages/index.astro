@@ -1,0 +1,210 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Nav from '@components/Nav.astro';
+import Footer from '@components/Footer.astro';
+import ContentSection from '@components/ContentSection.astro';
+import { getEntry } from 'astro:content';
+import sections from '../data/home-sections.json';
+
+const homeEntry = await getEntry('home', 'home');
+const data = homeEntry!.data;
+const Content = await homeEntry!.render().then((r) => r.Content);
+
+const faq = [
+  { q: 'Это лекарство?', a: 'Нет. AllerCat — кормовая добавка для кошек. Она не является лекарственным средством и не предназначена для лечения аллергии.' },
+  { q: 'Как AllerCat связан с аллергией на кошек?', a: 'Основной кошачий аллерген Fel d 1 содержится в слюне и попадает на шерсть во время вылизывания. Подход AllerCat связан со снижением активного Fel d 1 и аллергенной нагрузки в доме.' },
+  { q: 'Через сколько ждать эффект?', a: 'Обычно важно регулярное применение в течение нескольких недель. Индивидуальную динамику разумно оценивать после 3–4 недель, а более спокойно — через 6–8 недель.' },
+  { q: 'Можно ли отменить антигистаминные?', a: 'Нет, решение о лекарствах принимает врач. AllerCat не заменяет медицинскую консультацию и не является лечением аллергии.' },
+  { q: 'Безопасно ли это для кошки?', a: 'Продукт добавляется к привычному корму и не требует стрессовых процедур. Если у кошки есть хронические заболевания, ограничения по рациону или особенности здоровья — перед применением лучше проконсультироваться с ветеринаром.' },
+  { q: 'Как применять?', a: 'Добавляйте продукт к привычному корму ежедневно. Точная порция указывается на упаковке.' },
+  { q: 'Что делать, если кошка не ест корм с добавкой?', a: 'Попробуйте вводить продукт постепенно, начиная с небольшой части порции, и смешивать с привычным влажным или сухим кормом.' },
+  { q: 'Подойдет ли для нескольких кошек?', a: 'Да, но продукт должен получать каждый питомец, который влияет на аллергенную нагрузку в доме. Расход зависит от количества кошек.' },
+  { q: 'Что входит в цену?', a: 'Одна банка рассчитана примерно на 30 дней применения. Ориентир по цене — 2 500 ₽.' },
+  { q: 'Как оформить заказ?', a: 'Оставьте заявку на сайте или напишите в удобный мессенджер. Мы уточним детали заказа, доставки и оплаты.' },
+];
+
+const researchLinks = [
+  {
+    title: 'Reduction of active Fel d1 from cats using an anti-Fel d1 egg IgY antibody',
+    source: 'Immunity, Inflammation and Disease, 2019',
+    url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC6764009/',
+    summary: 'Работа описывает подход с anti-Fel d 1 IgY и снижение активного Fel d 1 у кошек при регулярном кормлении ингредиентом.',
+  },
+  {
+    title: 'Multi-Level Safety Studies of Anti Fel d 1 IgY Ingredient in Cat Food',
+    source: 'Frontiers in Veterinary Science / PMC, 2020',
+    url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC6960183/',
+    summary: 'Публикация рассматривает переносимость anti-Fel d 1 IgY ингредиента в рационе кошек и многоуровневую оценку безопасности.',
+  },
+  {
+    title: 'Keep the cat, change the care pathway',
+    source: 'Clinical and Translational Allergy / PMC, 2020',
+    url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC7156987/',
+    summary: 'Обзор объясняет направление работы с Fel d 1 через источник аллергена и подчеркивает отличие такого подхода от лечения аллергии.',
+  },
+  {
+    title: 'Proof-of-concept study of anti-Fel d 1 IgY antibodies in cat food using the MASK-air app',
+    source: 'Allergy / PMC, 2024',
+    url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC11055507/',
+    summary: 'Пилотное исследование рассматривает связь регулярного применения anti-Fel d 1 IgY подхода с индивидуальной динамикой у части людей.',
+  },
+  {
+    title: 'Innovative Strategies to Reduce Exposure and Expression of the Major Cat Allergen Fel d 1',
+    source: 'Review / PMC, 2025',
+    url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC12417962/',
+    summary: 'Обзор собирает современные стратегии снижения воздействия Fel d 1 и описывает место IgY-подхода среди таких направлений.',
+  },
+];
+---
+
+<BaseLayout
+  title={data.seo?.title ?? data.title}
+  description={data.seo?.description ?? data.description}
+>
+  <Nav />
+  <main id="content">
+
+    <!-- Hero -->
+    <section class="hero" id="hero">
+      <div>
+        {data.heroBadge && <span class="badge">{data.heroBadge}</span>}
+        <h1 class="hero__title" style="margin-top: 1rem;">{data.tagline}</h1>
+        <p class="hero__description">{data.description}</p>
+        {data.heroBadges && data.heroBadges.length > 0 && (
+          <div class="hero__badges">
+            {data.heroBadges.map((b) => (
+              <span class="badge" style="background: var(--cream-100);">{b}</span>
+            ))}
+          </div>
+        )}
+        <div class="hero__cta">
+          <a class="button" href={data.cta.href}>{data.cta.label}</a>
+          {data.secondaryCta && (
+            <a class="button button--secondary" href={data.secondaryCta.href}>
+              {data.secondaryCta.label}
+            </a>
+          )}
+        </div>
+      </div>
+      <div class="card" style="background: var(--cream-100);">
+        <span class="eyebrow">Ежедневный формат</span>
+        <div class="prose" style="margin-top: 1rem;">
+          <Content />
+        </div>
+        {data.price && (
+          <div style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--cream-300);">
+            <p style="margin: 0; font-family: var(--font-serif); font-weight: 700; font-size: 1.5rem; color: var(--terracotta-500);">
+              {data.price}
+            </p>
+            {data.priceNote && (
+              <p style="margin: 0.25rem 0 0; font-size: 0.875rem; color: var(--fg-subtle);">{data.priceNote}</p>
+            )}
+          </div>
+        )}
+        {data.legalNotice && (
+          <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--fg-disabled);">{data.legalNotice}</p>
+        )}
+      </div>
+    </section>
+
+    <!-- О продукте -->
+    <ContentSection id="about" section={sections.benefits} />
+
+    <!-- Как работает механизм -->
+    <ContentSection id="how-it-works" section={sections.mechanism} />
+
+    <!-- Как применять -->
+    <ContentSection id="use" section={sections.howToUse} />
+
+    <!-- Динамика -->
+    <ContentSection id="dynamics" section={sections.dynamics} />
+
+    <!-- Научная база -->
+    <section id="research">
+      <h2>Научная база</h2>
+      <p style="margin-bottom: 2rem; color: var(--fg-subtle);">
+        Подход AllerCat основан на опубликованных научных работах. Мы не делаем медицинских заявлений —
+        ниже ссылки на исследования, которые легли в основу концепции.
+      </p>
+      <div class="grid grid-2" style="gap: 1.5rem;">
+        {researchLinks.map((item) => (
+          <a class="research-card" href={item.url} target="_blank" rel="noopener noreferrer">
+            <span class="research-card__source">{item.source}</span>
+            <div class="research-card__title">{item.title}</div>
+            <p>{item.summary}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <h2>Часто задаваемые вопросы</h2>
+      <div class="faq-list" style="margin-top: 1.5rem;">
+        {faq.map((item) => (
+          <details class="faq-item">
+            <summary>{item.q}</summary>
+            <div class="faq-answer">{item.a}</div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- Заказ -->
+    <section id="order">
+      <h2>Как сделать заказ</h2>
+      <div class="grid grid-2" style="gap: 2rem; align-items: start;">
+
+        <ContentSection section={sections.orderSteps} />
+
+        <div class="order-form">
+          <span class="eyebrow">Оставьте заявку</span>
+          <h3 style="margin-top: 0.5rem;">Свяжемся и уточним детали</h3>
+          <p style="font-size: 0.95rem; margin-bottom: 1.5rem;">
+            Оставьте имя и удобный способ связи — мы ответим на вопросы и подтвердим заказ.
+          </p>
+          <form
+            method="POST"
+            action="/thank-you"
+            id="order-form"
+            novalidate
+          >
+            <div class="form-group">
+              <label for="name">Имя</label>
+              <input type="text" id="name" name="name" placeholder="Ваше имя" autocomplete="given-name" required />
+            </div>
+            <div class="form-group">
+              <label for="contact">Telegram или телефон</label>
+              <input type="text" id="contact" name="contact" placeholder="@username или +7..." required />
+            </div>
+            <div class="form-group">
+              <label for="comment">Вопрос или комментарий <span style="color: var(--fg-disabled); font-weight: 400;">(необязательно)</span></label>
+              <textarea id="comment" name="comment" rows="3" placeholder="Например: у меня две кошки..."></textarea>
+            </div>
+            <button type="submit" class="button" style="width: 100%; justify-content: center; margin-top: 0.5rem;">
+              Отправить заявку
+            </button>
+          </form>
+          <p class="form-note">
+            Заявка ни к чему не обязывает: сначала связь, потом подтверждение заказа.
+            Мы не списываем оплату автоматически.
+          </p>
+          <div style="margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--cream-300);">
+            <p style="font-size: 0.9rem; color: var(--fg-subtle); margin-bottom: 0.75rem;">Или напишите напрямую:</p>
+            <a
+              class="button button--secondary"
+              href={data.contact.telegram}
+              target="_blank"
+              rel="noopener noreferrer"
+              style="width: 100%; justify-content: center;"
+            >
+              Написать в Telegram
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <Footer contact={data.contact} />
+</BaseLayout>

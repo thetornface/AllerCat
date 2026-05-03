@@ -1,0 +1,38 @@
+---
+import logoUrl from '@assets/logo.svg?url';
+
+interface Contact {
+  telegram: string;
+  email?: string;
+}
+
+const { contact }: { contact: Contact } = Astro.props;
+---
+
+<footer>
+  <div class="inner">
+    <div class="brand">
+      <img src={logoUrl} alt="AllerCat" width="100" height="34" loading="lazy" />
+      <div class="brand__text">
+        <p>© {new Date().getFullYear()} AllerCat. Все права защищены.</p>
+        {contact.email && (
+          <p>Email: <a href={`mailto:${contact.email}`}>{contact.email}</a></p>
+        )}
+        {contact.telegram && (
+          <p>Telegram: <a href={contact.telegram} target="_blank" rel="noopener">{contact.telegram}</a></p>
+        )}
+        <p style="margin-top: 0.25rem; font-size: 0.8rem; color: var(--fg-disabled);">
+          Не является лекарственным средством. Реакция на аллергены индивидуальна.
+        </p>
+      </div>
+    </div>
+
+    <nav class="footer-links" aria-label="Юридические документы">
+      <a href="/offer">Оферта</a>
+      <a href="/privacy">Конфиденциальность</a>
+      <a href="/terms">Соглашение</a>
+      <a href="/returns">Возврат</a>
+      <a href="/cookies">Cookies</a>
+    </nav>
+  </div>
+</footer>
