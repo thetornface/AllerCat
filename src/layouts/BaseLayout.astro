@@ -8,7 +8,9 @@ const {
   noIndex = false,
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://allercat.ru');
+const siteOrigin = (Astro.site ?? new URL('https://allercat.ru')).origin;
+const canonicalURL = new URL(Astro.url.pathname, siteOrigin);
+const ogImageAbsolute = ogImage.startsWith('http') ? ogImage : `${siteOrigin}${ogImage}`;
 ---
 <!DOCTYPE html>
 <html lang="ru">
@@ -25,9 +27,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://allercat
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL.href} />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:image" content={ogImageAbsolute} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image" content={ogImageAbsolute} />
 
     <title>{title}</title>
 

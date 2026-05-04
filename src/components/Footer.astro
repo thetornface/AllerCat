@@ -19,7 +19,9 @@ const { contact }: { contact: Contact } = Astro.props;
           <p>Email: <a href={`mailto:${contact.email}`}>{contact.email}</a></p>
         )}
         {contact.telegram && (
-          <p>Telegram: <a href={contact.telegram} target="_blank" rel="noopener">{contact.telegram}</a></p>
+          <p>Telegram: <a href={contact.telegram} target="_blank" rel="noopener">
+            {contact.telegram.replace('https://t.me/', '@')}
+          </a></p>
         )}
         <p style="margin-top: 0.25rem; font-size: 0.8rem; color: var(--fg-disabled);">
           Не является лекарственным средством. Реакция на аллергены индивидуальна.
