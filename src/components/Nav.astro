@@ -1,6 +1,7 @@
 ---
 const isHome = Astro.url.pathname === '/';
 const link = (anchor: string) => (isHome ? anchor : `/${anchor}`);
+const cartHref = isHome ? '#buy' : '/#buy';
 ---
 
 <nav class="nav">
@@ -18,14 +19,25 @@ const link = (anchor: string) => (isHome ? anchor : `/${anchor}`);
     </div>
 
     <div class="nav-right">
-      <button class="nav-cart" id="cartBtn" type="button" aria-label="Корзина">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-          <path d="M3 6h18"/>
-          <path d="M16 10a4 4 0 01-8 0"/>
-        </svg>
-        <span class="cart-badge" id="cartCount">0</span>
-      </button>
+      {isHome ? (
+        <button class="nav-cart" id="cartBtn" type="button" aria-label="Корзина">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+            <path d="M3 6h18"/>
+            <path d="M16 10a4 4 0 01-8 0"/>
+          </svg>
+          <span class="cart-badge" id="cartCount">0</span>
+        </button>
+      ) : (
+        <a class="nav-cart" href={cartHref} aria-label="Перейти к покупке">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+            <path d="M3 6h18"/>
+            <path d="M16 10a4 4 0 01-8 0"/>
+          </svg>
+          <span class="cart-badge">Купить</span>
+        </a>
+      )}
       <button class="mob-menu" id="mobMenu" type="button" aria-label="Меню">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
           <path d="M3 6h18M3 12h18M3 18h18"/>
