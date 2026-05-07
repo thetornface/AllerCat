@@ -14,19 +14,19 @@ const contact = homeEntry!.data.contact;
   noIndex={true}
 >
   <Nav />
-  <main id="content">
-    <div class="thankyou-wrap">
-      <div class="thankyou-icon">🐱</div>
-      <h1 style="font-size: clamp(1.75rem, 4vw, 2.5rem);">Заявка получена!</h1>
-      <p style="max-width: 480px; text-align: center; color: var(--fg-muted);">
+  <main id="content" style="display: flex; align-items: center; justify-content: center; min-height: 70vh; padding: 2rem 1rem;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 1.5rem; text-align: center; max-width: 520px;">
+      <div style="font-size: 4rem;">🐱</div>
+      <h1 style="font-size: clamp(1.75rem, 4vw, 2.5rem); color: var(--brown);">Заявка получена!</h1>
+      <p style="color: var(--muted); line-height: 1.6;">
         Спасибо! Мы получили вашу заявку и скоро свяжемся с вами для уточнения деталей заказа.
       </p>
-      <p style="font-size: 0.9rem; color: var(--fg-subtle); text-align: center;">
+      <p style="font-size: 0.9rem; color: var(--muted);">
         Мы не списываем оплату автоматически. Заказ подтверждается только после разговора с вами.
       </p>
       <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
-        <a class="button" href="/">На главную</a>
-        <a class="button button--secondary" href={contact.telegram} target="_blank" rel="noopener">
+        <a class="btn btn-p" href="/">На главную</a>
+        <a class="btn btn-s" href={contact.telegram} target="_blank" rel="noopener">
           Написать в Telegram
         </a>
       </div>
