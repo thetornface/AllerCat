@@ -1,80 +1,40 @@
-/* AllerCat — Design Tokens */
-
-@font-face { font-family: 'Merriweather'; font-weight: 300; font-style: normal; font-display: swap; src: url('/fonts/Merriweather/Merriweather-Light.ttf') format('truetype'); }
-@font-face { font-family: 'Merriweather'; font-weight: 400; font-style: normal; font-display: swap; src: url('/fonts/Merriweather/Merriweather-Regular.ttf') format('truetype'); }
-@font-face { font-family: 'Merriweather'; font-weight: 700; font-style: normal; font-display: swap; src: url('/fonts/Merriweather/Merriweather-Bold.ttf') format('truetype'); }
-@font-face { font-family: 'Merriweather'; font-weight: 900; font-style: normal; font-display: swap; src: url('/fonts/Merriweather/Merriweather-Black.ttf') format('truetype'); }
-
-@font-face { font-family: 'Tilda Sans'; font-weight: 300; font-style: normal; font-display: swap; src: url('/fonts/TildaSans.07Web/TildaSans-Light/TildaSans-Light.woff2') format('woff2'); }
-@font-face { font-family: 'Tilda Sans'; font-weight: 400; font-style: normal; font-display: swap; src: url('/fonts/TildaSans.07Web/TildaSans-Regular/TildaSans-Regular.woff2') format('woff2'); }
-@font-face { font-family: 'Tilda Sans'; font-weight: 500; font-style: normal; font-display: swap; src: url('/fonts/TildaSans.07Web/TildaSans-Medium/TildaSans-Medium.woff2') format('woff2'); }
-@font-face { font-family: 'Tilda Sans'; font-weight: 600; font-style: normal; font-display: swap; src: url('/fonts/TildaSans.07Web/TildaSans-Semibold/TildaSans-Semibold.woff2') format('woff2'); }
-@font-face { font-family: 'Tilda Sans'; font-weight: 700; font-style: normal; font-display: swap; src: url('/fonts/TildaSans.07Web/TildaSans-Bold/TildaSans-Bold.woff2') format('woff2'); }
-
-@font-face { font-family: 'Neucha'; font-weight: 400; font-style: normal; font-display: swap; src: url('/fonts/Neucha-Regular.ttf') format('truetype'); }
+/* AllerCat — Design Tokens (matches "Текущий сайт") */
 
 :root {
-  /* Brand colors */
-  --cream-50:        #FFF8E8;
-  --cream-100:       #FBEDCB;
-  --cream-200:       #F5E3B8;
-  --cream-300:       #EBD5A1;
-
-  --terracotta-100:  #F2B896;
-  --terracotta-300:  #E08E5F;
-  --terracotta-500:  #C45A2D;
-  --terracotta-700:  #9E4420;
-
-  --olive-100:       #C9D3B1;
-  --olive-300:       #A1B184;
-  --olive-500:       #7E9160;
-  --olive-700:       #5A6B42;
-
-  --gold-100:        #F6D799;
-  --gold-300:        #E9B560;
-  --gold-500:        #D18A2C;
-
-  --ink-900:         #2E2213;
-  --ink-700:         #453821;
-  --ink-500:         #6E5B3D;
-  --ink-300:         #A89878;
-
-  /* Semantic */
-  --bg:              var(--cream-200);
-  --bg-alt:          var(--cream-100);
-  --bg-raised:       var(--cream-50);
-  --fg:              var(--ink-900);
-  --fg-muted:        var(--ink-700);
-  --fg-subtle:       var(--ink-500);
-  --fg-disabled:     var(--ink-300);
-  --fg-inverse:      var(--cream-50);
-  --border:          var(--cream-300);
-  --border-strong:   var(--ink-700);
-  --accent:          var(--terracotta-500);
-  --accent-hover:    var(--terracotta-700);
-  --accent-soft:     var(--terracotta-100);
-  --secondary:       var(--olive-500);
-  --secondary-hover: var(--olive-700);
-
-  /* Typography */
-  --font-serif:   'Merriweather', 'Lora', Georgia, serif;
-  --font-sans:    'Tilda Sans', 'Inter', 'Segoe UI', system-ui, sans-serif;
-  --font-script:  'Neucha', 'Caveat', cursive;
+  /* Brand palette */
+  --cream:        #F5EDD6;
+  --cream-soft:   #FBF6E6;
+  --cream-deep:   #EFE3C0;
+  --gold:         #D4A843;
+  --gold-deep:    #B8892A;
+  --brown:        #7B4F2E;
+  --brown-soft:   #9A6B45;
+  --sage:         #8BA888;
+  --sage-deep:    #6B8A68;
+  --terra:        #C4694F;
+  --terra-deep:   #A5553E;
+  --ink:          #2D1F15;
+  --muted:        #6B5945;
+  --white:        #fff;
 
   /* Radii */
-  --radius-sm:   6px;
-  --radius-md:   12px;
-  --radius-lg:   20px;
-  --radius-xl:   28px;
-  --radius-pill: 999px;
+  --r:   16px;
+  --rl:  24px;
+  --rll: 32px;
 
-  /* Shadows (warm, brown-tinted) */
-  --shadow-sm:  0 1px 2px rgba(46, 34, 19, 0.08);
-  --shadow-md:  0 4px 12px rgba(46, 34, 19, 0.10);
-  --shadow-lg:  0 12px 28px rgba(46, 34, 19, 0.14);
+  /* Shadows */
+  --sh:  0 4px 20px rgba(123, 79, 46, 0.10);
+  --shm: 0 8px 32px rgba(123, 79, 46, 0.14);
 
-  /* Stamp border */
-  --stamp: 1.5px solid var(--ink-900);
+  /* Typography */
+  --serif: 'Fraunces', Georgia, serif;
+  --sans:  'Manrope', system-ui, -apple-system, sans-serif;
 
-  --max-width: 1100px;
+  /* Image refs (real files in public/) */
+  --img-logo: url("/assets/images/logo.svg");
+  --img-jar:  url("/assets/images/jar.jpg");
+  --img-cat:  url("/assets/images/cat.jpg");
+
+  /* Layout */
+  --container-width: 1280px;
 }
