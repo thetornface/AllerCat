@@ -2,8 +2,8 @@
 import '../styles/global.css';
 
 const {
-  title = 'AllerCat',
-  description = 'AllerCat — ежедневная добавка к корму, которая помогает снижать активный Fel d 1, главный кошачий аллерген.',
+  title = 'AllerCat — Живите с кошкой. Без аллергии.',
+  description = 'AllerCat — российская кормовая добавка на основе IgY-антител. Снижает аллерген Fel d1 до 95% за 3–6 недель.',
   ogImage = '/assets/images/og-image.jpg',
   noIndex = false,
 } = Astro.props;
@@ -15,10 +15,10 @@ const ogImageAbsolute = ogImage.startsWith('http') ? ogImage : `${siteOrigin}${o
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#f6ecda" />
+    <meta name="theme-color" content="#FBF6E6" />
     {noIndex && <meta name="robots" content="noindex" />}
     <link rel="canonical" href={canonicalURL.href} />
 
@@ -32,6 +32,13 @@ const ogImageAbsolute = ogImage.startsWith('http') ? ogImage : `${siteOrigin}${o
     <meta name="twitter:image" content={ogImageAbsolute} />
 
     <title>{title}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,600;1,9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />

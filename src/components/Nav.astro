@@ -1,130 +1,51 @@
 ---
-import logoUrl from '@assets/logo.svg?url';
-import menuIcon from '@assets/menu-mobile.svg?raw';
-
-interface NavItem {
-  href: string;
-  label: string;
-}
-
-const { ctaHref = '#order', ctaLabel = 'Заказать' } = Astro.props;
-
 const isHome = Astro.url.pathname === '/';
 const link = (anchor: string) => (isHome ? anchor : `/${anchor}`);
-
-const navItems: NavItem[] = [
-  { href: link('#about'),       label: 'О продукте' },
-  { href: link('#how-it-works'), label: 'Как работает' },
-  { href: link('#research'),    label: 'Научная база' },
-  { href: link('#faq'),         label: 'FAQ' },
-];
 ---
 
-<nav class="site-nav" data-nav>
-  <div class="navbar" data-nav-bar>
-    <a class="nav-brand" href="/" aria-label="AllerCat — на главную">
-      <span class="nav-logo">
-        <img src={logoUrl} alt="AllerCat" width="120" height="40" loading="lazy" />
-      </span>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo" aria-label="AllerCat — на главную">
+      <div class="bg-logo" role="img" aria-label="AllerCat"></div>
+      <span class="nav-logo-text">AllerCat</span>
     </a>
 
-    <button
-      type="button"
-      class="nav-toggle"
-      aria-controls="mobile-menu"
-      aria-expanded="false"
-      aria-label="Открыть меню"
-      aria-haspopup="true"
-      data-nav-toggle
-    >
-      <span class="nav-toggle__icon" aria-hidden="true" set:html={menuIcon}></span>
-    </button>
-
-    <div class="nav-links nav-links--desktop">
-      {navItems.map((item) => (
-        <a href={item.href}>{item.label}</a>
-      ))}
-      <a class="button" href={ctaHref} style="padding: 0.55rem 1.25rem; font-size: 0.875rem;">
-        {ctaLabel}
-      </a>
+    <div class="nav-links" id="navLinks">
+      <a href={link('#facts')}>Интересные факты</a>
+      <a href={link('#buy')}>Купить</a>
+      <a href={link('#how')}>Как работает</a>
+      <a href={link('#faq')}>FAQ</a>
     </div>
-  </div>
 
-  <div class="nav-menu" id="mobile-menu" data-mobile-menu hidden>
-    <div class="nav-menu__content">
-      <nav aria-label="Мобильное меню" class="nav-menu__links">
-        {navItems.map((item) => (
-          <a href={item.href}>{item.label}</a>
-        ))}
-        <a href={ctaHref} class="button" style="width: 100%; justify-content: center;">
-          {ctaLabel}
-        </a>
-      </nav>
+    <div class="nav-right">
+      <button class="nav-cart" id="cartBtn" type="button" aria-label="Корзина">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <path d="M3 6h18"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+        <span class="cart-badge" id="cartCount">0</span>
+      </button>
+      <button class="mob-menu" id="mobMenu" type="button" aria-label="Меню">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <path d="M3 6h18M3 12h18M3 18h18"/>
+        </svg>
+      </button>
     </div>
   </div>
 </nav>
 
-<script type="module">
-  (() => {
-    const navRoot = document.querySelector('[data-nav]');
-    if (!navRoot) return;
-
-    const toggle = navRoot.querySelector('[data-nav-toggle]');
-    const mobileMenu = navRoot.querySelector('[data-mobile-menu]');
-    const mobileLinks = mobileMenu ? Array.from(mobileMenu.querySelectorAll('a')) : [];
-    const desktopQuery = window.matchMedia('(min-width: 768px)');
-    let previousOverflow = '';
-    let openAF = 0;
-
-    const closeMenu = () => {
-      if (!navRoot.classList.contains('is-open') && !openAF) return;
-      if (openAF) { cancelAnimationFrame(openAF); openAF = 0; }
-      if (navRoot.classList.contains('is-open')) navRoot.classList.remove('is-open');
-      navRoot.classList.add('is-closing');
-      if (toggle) {
-        toggle.setAttribute('aria-expanded', 'false');
-        toggle.setAttribute('aria-label', 'Открыть меню');
-      }
-      document.body.style.overflow = previousOverflow;
-    };
-
-    const openMenu = () => {
-      if (navRoot.classList.contains('is-open')) return;
-      previousOverflow = document.body.style.overflow;
-      navRoot.classList.remove('is-closing');
-      if (mobileMenu) { mobileMenu.removeAttribute('hidden'); mobileMenu.getBoundingClientRect(); }
-      if (openAF) cancelAnimationFrame(openAF);
-      openAF = requestAnimationFrame(() => { navRoot.classList.add('is-open'); openAF = 0; });
-      if (toggle) {
-        toggle.setAttribute('aria-expanded', 'true');
-        toggle.setAttribute('aria-label', 'Закрыть меню');
-      }
-      document.body.style.overflow = 'hidden';
-    };
-
-    if (toggle) {
-      toggle.addEventListener('click', () => {
-        navRoot.classList.contains('is-open') ? closeMenu() : openMenu();
-      });
-    }
-
-    mobileLinks.forEach((link) => link.addEventListener('click', () => closeMenu()));
-
-    if (mobileMenu) {
-      mobileMenu.addEventListener('click', (e) => { if (e.target === mobileMenu) closeMenu(); });
-      mobileMenu.addEventListener('transitionend', (e) => {
-        if (e.target !== mobileMenu || e.propertyName !== 'opacity') return;
-        if (navRoot.classList.contains('is-open')) return;
-        navRoot.classList.remove('is-closing');
-        mobileMenu.setAttribute('hidden', '');
-      });
-    }
-
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
-
-    const handleDesktopChange = (e) => { if (e.matches) closeMenu(); };
-    if (desktopQuery.addEventListener) desktopQuery.addEventListener('change', handleDesktopChange);
-    else desktopQuery.addListener(handleDesktopChange);
-    if (desktopQuery.matches) closeMenu();
-  })();
+<script>
+  // Mobile menu toggle
+  const mobBtn = document.getElementById('mobMenu');
+  const navLinks = document.getElementById('navLinks');
+  if (mobBtn && navLinks) {
+    mobBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+    // Close menu on link click
+    navLinks.querySelectorAll('a').forEach((a) => {
+      a.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+  }
 </script>
