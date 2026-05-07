@@ -205,9 +205,9 @@
   color: var(--brown);
 }
 .card-img-inner .card-icon {
-  width: 64px;
-  height: 64px;
-  filter: drop-shadow(0 2px 4px rgba(45, 31, 21, 0.12));
+  width: 96px;
+  height: 96px;
+  filter: drop-shadow(0 4px 10px rgba(45, 31, 21, 0.18));
   transition: transform .35s cubic-bezier(.16,1,.3,1);
 }
 .fact-card:hover .card-img-inner .card-icon {
@@ -386,9 +386,9 @@
   color: var(--brown);
 }
 .slide-img .card-icon {
-  width: 56px;
-  height: 56px;
-  filter: drop-shadow(0 2px 4px rgba(45, 31, 21, 0.12));
+  width: 84px;
+  height: 84px;
+  filter: drop-shadow(0 4px 10px rgba(45, 31, 21, 0.18));
 }
 .slide-img.bg1  { background: linear-gradient(135deg, #F5EDD6 0%, #E8C27A 100%); }
 .slide-img.bg2  { background: linear-gradient(135deg, #E8F0E8 0%, #8BA888 100%); }
@@ -481,8 +481,8 @@
   line-height: 1;
 }
 .art-hero-emoji .card-icon {
-  width: 96px;
-  height: 96px;
+  width: 130px;
+  height: 130px;
 }
 .art-close-btn {
   position: absolute;
