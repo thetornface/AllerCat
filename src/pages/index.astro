@@ -2,227 +2,430 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Nav from '@components/Nav.astro';
 import Footer from '@components/Footer.astro';
-import ContentSection from '@components/ContentSection.astro';
 import { getEntry } from 'astro:content';
-import sections from '../data/home-sections.json';
+import facts from '../data/facts.json';
+import slides from '../data/slides.json';
 
 const homeEntry = await getEntry('home', 'home');
 const data = homeEntry!.data;
-const Content = await homeEntry!.render().then((r) => r.Content);
 
-const faq = [
-  { q: 'Это лекарство?', a: 'Нет. AllerCat — кормовая добавка для кошек. Она не является лекарственным средством и не предназначена для лечения аллергии.' },
-  { q: 'Как AllerCat связан с аллергией на кошек?', a: 'Основной кошачий аллерген Fel d 1 содержится в слюне и попадает на шерсть во время вылизывания. Подход AllerCat связан со снижением активного Fel d 1 и аллергенной нагрузки в доме.' },
-  { q: 'Через сколько ждать эффект?', a: 'Обычно важно регулярное применение в течение нескольких недель. Индивидуальную динамику разумно оценивать после 3–4 недель, а более спокойно — через 6–8 недель.' },
-  { q: 'Можно ли отменить антигистаминные?', a: 'Нет, решение о лекарствах принимает врач. AllerCat не заменяет медицинскую консультацию и не является лечением аллергии.' },
-  { q: 'Безопасно ли это для кошки?', a: 'Продукт добавляется к привычному корму и не требует стрессовых процедур. Если у кошки есть хронические заболевания, ограничения по рациону или особенности здоровья — перед применением лучше проконсультироваться с ветеринаром.' },
-  { q: 'Как применять?', a: 'Добавляйте продукт к привычному корму ежедневно. Точная порция указывается на упаковке.' },
-  { q: 'Что делать, если кошка не ест корм с добавкой?', a: 'Попробуйте вводить продукт постепенно, начиная с небольшой части порции, и смешивать с привычным влажным или сухим кормом.' },
-  { q: 'Подойдет ли для нескольких кошек?', a: 'Да, но продукт должен получать каждый питомец, который влияет на аллергенную нагрузку в доме. Расход зависит от количества кошек.' },
-  { q: 'Что входит в цену?', a: 'Одна банка рассчитана примерно на 30 дней применения. Ориентир по цене — 2 500 ₽.' },
-  { q: 'Как оформить заказ?', a: 'Оставьте заявку на сайте или напишите в удобный мессенджер. Мы уточним детали заказа, доставки и оплаты.' },
+const timeFilters = [
+  { label: 'Все', value: 'all' },
+  { label: '1 мин', value: '1' },
+  { label: '2 мин', value: '2' },
+  { label: '3 мин', value: '3' },
 ];
 
-const researchLinks = [
-  {
-    title: 'Reduction of active Fel d1 from cats using an anti-Fel d1 egg IgY antibody',
-    source: 'Immunity, Inflammation and Disease, 2019',
-    url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC6764009/',
-    summary: 'Работа описывает подход с anti-Fel d 1 IgY и снижение активного Fel d 1 у кошек при регулярном кормлении ингредиентом.',
-  },
-  {
-    title: 'Multi-Level Safety Studies of Anti Fel d 1 IgY Ingredient in Cat Food',
-    source: 'Frontiers in Veterinary Science / PMC, 2020',
-    url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC6960183/',
-    summary: 'Публикация рассматривает переносимость anti-Fel d 1 IgY ингредиента в рационе кошек и многоуровневую оценку безопасности.',
-  },
-  {
-    title: 'Keep the cat, change the care pathway',
-    source: 'Clinical and Translational Allergy / PMC, 2020',
-    url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC7156987/',
-    summary: 'Обзор объясняет направление работы с Fel d 1 через источник аллергена и подчеркивает отличие такого подхода от лечения аллергии.',
-  },
-  {
-    title: 'Proof-of-concept study of anti-Fel d 1 IgY antibodies in cat food using the MASK-air app',
-    source: 'Allergy / PMC, 2024',
-    url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC11055507/',
-    summary: 'Пилотное исследование рассматривает связь регулярного применения anti-Fel d 1 IgY подхода с индивидуальной динамикой у части людей.',
-  },
-  {
-    title: 'Innovative Strategies to Reduce Exposure and Expression of the Major Cat Allergen Fel d 1',
-    source: 'Review / PMC, 2025',
-    url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC12417962/',
-    summary: 'Обзор собирает современные стратегии снижения воздействия Fel d 1 и описывает место IgY-подхода среди таких направлений.',
-  },
+const catFilters = [
+  { ico: '🐾', label: 'Все факты',     value: 'all' },
+  { ico: '🧬', label: 'Аллерген',      value: 'allergen' },
+  { ico: '🐱', label: 'Кошки',         value: 'cats' },
+  { ico: '🔬', label: 'Наука',         value: 'science' },
+  { ico: '🏠', label: 'Жизнь с кошкой', value: 'lifestyle' },
+  { ico: '💊', label: 'Лечение',       value: 'treatment' },
+];
+
+const shops = [
+  { ico: '🟠', name: 'Ozon' },
+  { ico: '🟣', name: 'Wildberries' },
+  { ico: '🟡', name: 'Яндекс Маркет' },
+  { ico: '🐾', name: 'Petshop' },
+  { ico: '🛍️', name: 'Самокат' },
+  { ico: '🛒', name: 'Мегамаркет' },
 ];
 ---
 
 <BaseLayout
-  title={data.seo?.title ?? data.title}
-  description={data.seo?.description ?? data.description}
+  title="AllerCat — Живите с кошкой. Без аллергии."
+  description="AllerCat — российская кормовая добавка на основе IgY-антител. Снижает аллерген Fel d1 до 95% за 3–6 недель."
 >
   <Nav />
+
   <main id="content">
 
-    <!-- Hero -->
-    <section class="hero" id="hero">
-      <div>
-        {data.heroBadge && <span class="badge">{data.heroBadge}</span>}
-        <h1 class="hero__title" style="margin-top: 1rem;">{data.tagline}</h1>
-        <p class="hero__description">{data.description}</p>
-        {data.heroBadges && data.heroBadges.length > 0 && (
-          <div class="hero__badges">
-            {data.heroBadges.map((b) => (
-              <span class="badge" style="background: var(--cream-100);">{b}</span>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-inner">
+        <span class="hero-badge">🇷🇺 Российский бренд · IgY-технология</span>
+        <h1>Добавляйте <em>заботу</em><br/>в&nbsp;каждую миску</h1>
+        <p class="hero-sub">AllerCat — порошковая добавка, которая снижает аллерген Fel&nbsp;d1 в&nbsp;слюне кошки до&nbsp;95%&nbsp;за&nbsp;3–6&nbsp;недель</p>
+        <div class="hero-cta">
+          <a href="#buy" class="btn btn-p">Купить — 2&nbsp;690&nbsp;₽</a>
+          <a href="#facts" class="btn btn-ghost">Интересные факты</a>
+        </div>
+      </div>
+      <div class="hero-imgs">
+        <div class="hero-img-wrap">
+          <div class="bg-img bg-jar"></div>
+          <span class="hero-img-label">100г порошка</span>
+        </div>
+        <div class="hero-img-wrap center">
+          <div class="bg-img bg-cat"></div>
+          <span class="hero-img-label">Снижение до 95%</span>
+        </div>
+        <div class="hero-img-wrap">
+          <div class="bg-img bg-jar"></div>
+          <span class="hero-img-label">30 дней курса</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS STRIP -->
+    <div class="strip">
+      <div class="strip-inner">
+        <div class="strip-stat"><div class="num">95%</div><div class="lbl">снижение аллергена</div></div>
+        <div class="strip-div"></div>
+        <div class="strip-stat"><div class="num">3–6</div><div class="lbl">недель до эффекта</div></div>
+        <div class="strip-div"></div>
+        <div class="strip-stat"><div class="num">127</div><div class="lbl">довольных семей</div></div>
+        <div class="strip-div"></div>
+        <div class="strip-stat"><div class="num">100%</div><div class="lbl">натуральный состав</div></div>
+      </div>
+    </div>
+
+    <!-- FILTERS + FACTS GRID -->
+    <section id="facts">
+      <div class="filters-section">
+        <div class="wrap">
+          <div class="filters-top">
+            <h2>Интересные факты<br/>об аллергии и кошках</h2>
+            <div class="search-wrap">
+              <svg class="search-ico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="M21 21l-4.35-4.35"/>
+              </svg>
+              <input type="search" id="searchInput" placeholder="Поиск фактов…" />
+            </div>
+          </div>
+
+          <div class="time-filters" id="timeFilters">
+            {timeFilters.map((f) => (
+              <button class={`time-btn${f.value === 'all' ? ' active' : ''}`} data-time={f.value} type="button">{f.label}</button>
             ))}
           </div>
-        )}
-        <div class="hero__cta">
-          <a class="button" href={data.cta.href}>{data.cta.label}</a>
-          {data.secondaryCta && (
-            <a class="button button--secondary" href={data.secondaryCta.href}>
-              {data.secondaryCta.label}
-            </a>
-          )}
-        </div>
-      </div>
-      <div class="card" style="background: var(--cream-100);">
-        <span class="eyebrow">Ежедневный формат</span>
-        <div class="prose" style="margin-top: 1rem;">
-          <Content />
-        </div>
-        {data.price && (
-          <div style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--cream-300);">
-            <p style="margin: 0; font-family: var(--font-serif); font-weight: 700; font-size: 1.5rem; color: var(--terracotta-500);">
-              {data.price}
-            </p>
-            {data.priceNote && (
-              <p style="margin: 0.25rem 0 0; font-size: 0.875rem; color: var(--fg-subtle);">{data.priceNote}</p>
-            )}
-          </div>
-        )}
-        {data.legalNotice && (
-          <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--fg-disabled);">{data.legalNotice}</p>
-        )}
-      </div>
-    </section>
 
-    <!-- О продукте -->
-    <ContentSection id="about" section={sections.benefits} />
-
-    <!-- Как работает механизм -->
-    <ContentSection id="how-it-works" section={sections.mechanism} />
-
-    <!-- Как применять -->
-    <ContentSection id="use" section={sections.howToUse} />
-
-    <!-- Динамика -->
-    <ContentSection id="dynamics" section={sections.dynamics} />
-
-    <!-- Научная база -->
-    <section id="research">
-      <h2>Научная база</h2>
-      <p style="margin-bottom: 2rem; color: var(--fg-subtle);">
-        Подход AllerCat основан на опубликованных научных работах. Мы не делаем медицинских заявлений —
-        ниже ссылки на исследования, которые легли в основу концепции.
-      </p>
-      <div class="grid grid-2" style="gap: 1.5rem;">
-        {researchLinks.map((item) => (
-          <a class="research-card" href={item.url} target="_blank" rel="noopener noreferrer">
-            <span class="research-card__source">{item.source}</span>
-            <div class="research-card__title">{item.title}</div>
-            <p>{item.summary}</p>
-          </a>
-        ))}
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section id="faq">
-      <h2>Часто задаваемые вопросы</h2>
-      <div class="faq-list" style="margin-top: 1.5rem;">
-        {faq.map((item) => (
-          <details class="faq-item">
-            <summary>{item.q}</summary>
-            <div class="faq-answer">{item.a}</div>
-          </details>
-        ))}
-      </div>
-    </section>
-
-    <!-- Заказ -->
-    <section id="order">
-      <h2>Как сделать заказ</h2>
-      <div class="grid grid-2" style="gap: 2rem; align-items: start;">
-
-        <div>
-          <div class="grid grid-3" style="gap: 1.25rem;">
-            {sections.orderSteps.items.map((item, i) => (
-              <article class="step-card">
-                <span class="badge">{sections.orderSteps.tag} {i + 1}</span>
-                <div class="step-card__number">{String(i + 1).padStart(2, '0')}</div>
-                <h3>{item.title}</h3>
-                {item.description && <p>{item.description}</p>}
-              </article>
+          <div class="cat-filters" id="catFilters">
+            {catFilters.map((f) => (
+              <button class={`cat-btn${f.value === 'all' ? ' active' : ''}`} data-cat={f.value} type="button">
+                <span class="ico">{f.ico}</span>{f.label}
+              </button>
             ))}
           </div>
         </div>
+      </div>
 
-        <div class="order-form">
-          <span class="eyebrow">Оставьте заявку</span>
-          <h3 style="margin-top: 0.5rem;">Свяжемся и уточним детали</h3>
-          <p style="font-size: 0.95rem; margin-bottom: 1.5rem;">
-            Оставьте имя и удобный способ связи — мы ответим на вопросы и подтвердим заказ.
-          </p>
-          <form
-            method="POST"
-            action="/thank-you"
-            id="order-form"
-            novalidate
-          >
-            <div class="form-group">
-              <label for="name">Имя</label>
-              <input type="text" id="name" name="name" placeholder="Ваше имя" autocomplete="given-name" required />
+      <div class="cards-section">
+        <div class="wrap">
+          <div class="cards-grid stagger" id="cardsGrid">
+            {facts.map((card) => (
+              <div class="fact-card" data-cat={card.cat} data-time={card.time} data-idx={card.idx}>
+                <div class="card-img">
+                  <div class={`card-img-inner ${card.bg}`}>{card.emoji}</div>
+                  <span class="card-num">Факт №{card.idx + 1}</span>
+                </div>
+                <div class="card-body">
+                  <div class="card-cat"><span>{card.catIcon}</span>{card.catLabel}</div>
+                  <div class="card-title">{card.title}</div>
+                  <div class="card-text">{card.text}</div>
+                </div>
+                <div class="card-foot">
+                  <div class="card-time">⏱ {card.time} мин</div>
+                  <span class="card-tag">{card.tag}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div id="noResults" class="no-results" style="display:none">
+            <div class="icon">🔍</div>
+            <h3>Ничего не найдено</h3>
+            <p>Попробуйте другой запрос или сбросьте фильтры</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDER (how it works) -->
+    <section class="slider-section" id="how">
+      <div class="slider-label reveal">
+        <span class="eyebrow">Как работает</span>
+        <h2>Путь от миски до облегчения</h2>
+      </div>
+
+      <div class="slider-track-wrap">
+        <div class="slider-track" id="sliderTrack">
+          {slides.map((s) => (
+            <div class="slide-card">
+              <div class={`slide-img ${s.bg}`}>{s.emoji}</div>
+              <div class="slide-body">
+                <h4>{s.title}</h4>
+                <p>{s.text}</p>
+                <span class="slide-tag">{s.tag}</span>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="contact">Telegram или телефон</label>
-              <input type="text" id="contact" name="contact" placeholder="@username или +7..." required />
+          ))}
+        </div>
+      </div>
+
+      <div class="slider-nav">
+        <button class="sl-btn" id="slPrev" type="button" aria-label="Назад">←</button>
+        <button class="sl-btn" id="slNext" type="button" aria-label="Вперёд">→</button>
+      </div>
+    </section>
+
+    <!-- BUY SECTION -->
+    <section class="buy-section" id="buy">
+      <div class="wrap">
+        <div class="buy-inner">
+          <div class="buy-text reveal">
+            <h2>AllerCat 100&nbsp;г — курс на&nbsp;месяц</h2>
+            <p>Порошковая кормовая добавка с&nbsp;IgY-антителами. Снижает аллерген Fel&nbsp;d1 в&nbsp;слюне кошки — без влияния на&nbsp;вкус корма и&nbsp;самочувствие животного.</p>
+            <div class="buy-price">
+              <span class="price-big">2&nbsp;690&nbsp;₽</span>
+              <span class="price-old">3&nbsp;200&nbsp;₽</span>
+              <span class="price-badge">−16%</span>
             </div>
-            <div class="form-group">
-              <label for="comment">Вопрос или комментарий <span style="color: var(--fg-disabled); font-weight: 400;">(необязательно)</span></label>
-              <textarea id="comment" name="comment" rows="3" placeholder="Например: у меня две кошки..."></textarea>
+            <div style="display:flex;gap:12px;margin-bottom:32px;flex-wrap:wrap">
+              <button class="btn btn-p" id="buyBtn" type="button">В корзину</button>
+              <a class="btn btn-s" href="#facts">Подробнее</a>
             </div>
-            <div class="form-group" style="flex-direction: row; align-items: flex-start; gap: 0.6rem;">
-              <input type="checkbox" id="consent" name="consent" required style="margin-top: 0.25rem; flex-shrink: 0; accent-color: var(--terracotta-500); width: 16px; height: 16px;" />
-              <label for="consent" style="font-size: 0.85rem; font-weight: 400; color: var(--fg-subtle); line-height: 1.5;">
-                Я соглашаюсь с <a href="/privacy" target="_blank" style="color: var(--terracotta-500);">политикой конфиденциальности</a>
-                и <a href="/consent" target="_blank" style="color: var(--terracotta-500);">обработкой персональных данных</a>
-              </label>
+            <p style="color:var(--muted);font-size:.88rem;margin-bottom:16px;font-weight:600">🛒 Купить в маркетплейсах:</p>
+            <div class="buy-shops">
+              {shops.map((s) => (
+                <div class="shop-tile">
+                  <div class="shop-ico">{s.ico}</div>
+                  <div class="shop-name">{s.name}</div>
+                </div>
+              ))}
             </div>
-            <button type="submit" class="button" style="width: 100%; justify-content: center; margin-top: 0.5rem;">
-              Отправить заявку
-            </button>
-          </form>
-          <p class="form-note">
-            Заявка ни к чему не обязывает: сначала связь, потом подтверждение заказа.
-            Мы не списываем оплату автоматически.
-          </p>
-          <div style="margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--cream-300);">
-            <p style="font-size: 0.9rem; color: var(--fg-subtle); margin-bottom: 0.75rem;">Или напишите напрямую:</p>
-            <a
-              class="button button--secondary"
-              href={data.contact.telegram}
-              target="_blank"
-              rel="noopener noreferrer"
-              style="width: 100%; justify-content: center;"
-            >
-              Написать в Telegram
-            </a>
+          </div>
+          <div class="buy-img reveal">
+            <div class="bg-img bg-cat"></div>
           </div>
         </div>
       </div>
     </section>
 
   </main>
+
   <Footer contact={data.contact} />
+
+  <!-- ARTICLE MODAL -->
+  <div class="art-modal" id="artModal">
+    <div class="art-inner" id="artInner">
+      <!-- rendered by JS -->
+    </div>
+  </div>
+
+  <!-- CART DRAWER -->
+  <div class="backdrop" id="backdrop"></div>
+  <aside class="drawer" id="drawer" aria-label="Корзина">
+    <div class="drawer-head">
+      <h3>Корзина</h3>
+      <button class="drawer-close" id="drawerClose" type="button" aria-label="Закрыть">✕</button>
+    </div>
+    <div class="drawer-body" id="drawerBody">
+      <div class="drawer-empty">Корзина пуста<br/><small>Добавьте AllerCat, чтобы продолжить</small></div>
+    </div>
+    <div class="drawer-foot">
+      <div class="drawer-total"><span>Итого</span><span id="drawerTotal">0&nbsp;₽</span></div>
+      <button class="btn btn-p" style="width:100%;justify-content:center" type="button">Оформить заказ</button>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast"></div>
+
+  <script is:inline define:vars={{ facts }}>
+    // Cards interactivity
+    const CARDS = Array.from(document.querySelectorAll('.fact-card'));
+
+    // ─── FILTERS ─────────────────────────────────────────────
+    let activeCat = 'all', activeTime = 'all', searchQ = '';
+
+    function filterCards() {
+      let any = false;
+      CARDS.forEach((c) => {
+        const cat = c.dataset.cat;
+        const time = parseInt(c.dataset.time);
+        const text = c.innerText.toLowerCase();
+        const matchCat  = activeCat === 'all' || cat === activeCat;
+        const matchTime = activeTime === 'all' || time === parseInt(activeTime);
+        const matchQ    = !searchQ || text.includes(searchQ);
+        const show = matchCat && matchTime && matchQ;
+        c.style.display = show ? '' : 'none';
+        if (show) any = true;
+      });
+      const noResults = document.getElementById('noResults');
+      if (noResults) noResults.style.display = any ? 'none' : 'block';
+    }
+
+    document.querySelectorAll('.cat-btn').forEach((b) => {
+      b.addEventListener('click', () => {
+        document.querySelectorAll('.cat-btn').forEach((x) => x.classList.remove('active'));
+        b.classList.add('active');
+        activeCat = b.dataset.cat;
+        filterCards();
+      });
+    });
+
+    document.querySelectorAll('.time-btn').forEach((b) => {
+      b.addEventListener('click', () => {
+        document.querySelectorAll('.time-btn').forEach((x) => x.classList.remove('active'));
+        b.classList.add('active');
+        activeTime = b.dataset.time;
+        filterCards();
+      });
+    });
+
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        searchQ = e.target.value.toLowerCase().trim();
+        filterCards();
+      });
+    }
+
+    // ─── ARTICLE MODAL ────────────────────────────────────────
+    const bgGradients = {
+      bg1:  'linear-gradient(135deg, #F5EDD6 0%, #E8C27A 100%)',
+      bg2:  'linear-gradient(135deg, #E8F0E8 0%, #8BA888 100%)',
+      bg3:  'linear-gradient(135deg, #FDE8E0 0%, #C4694F 100%)',
+      bg4:  'linear-gradient(135deg, #EFE3C0 0%, #D4A843 100%)',
+      bg5:  'linear-gradient(135deg, #E8EEF4 0%, #7B9AB2 100%)',
+      bg6:  'linear-gradient(135deg, #F0E8F4 0%, #9B7AAA 100%)',
+      bg7:  'linear-gradient(135deg, #F5EDD6 0%, #C4694F 100%)',
+      bg8:  'linear-gradient(135deg, #E8F4EE 0%, #6B8A68 100%)',
+      bg9:  'linear-gradient(135deg, #FBF0E0 0%, #B8892A 100%)',
+      bg10: 'linear-gradient(135deg, #F0F4F8 0%, #7B4F2E 100%)',
+      bg11: 'linear-gradient(135deg, #FDE8E8 0%, #C45050 100%)',
+      bg12: 'linear-gradient(135deg, #E8F5E8 0%, #4F8A6A 100%)',
+    };
+
+    function openArticle(idx) {
+      const a = facts[idx];
+      if (!a) return;
+      const inner = document.getElementById('artInner');
+      inner.innerHTML = `
+        <div class="art-hero" style="background:${bgGradients[a.bg] || bgGradients.bg1}">
+          <button class="art-close-btn" id="artClose" type="button" aria-label="Закрыть">✕</button>
+          <div class="art-hero-emoji">${a.emoji}</div>
+          <div class="art-meta">
+            <span class="art-cat-badge">${a.catIcon} ${a.catLabel}</span>
+            <span class="art-time-badge">⏱ ${a.time} мин чтения</span>
+          </div>
+          <h2>${a.title}</h2>
+        </div>
+        <div class="art-body">
+          <p>${a.text}</p>
+          <p>Это один из ${facts.length} фактов в нашей базе. AllerCat — российская кормовая добавка на основе IgY-антител, которая снижает аллерген Fel d1 в слюне кошки до 95% за 3–6 недель.</p>
+        </div>
+        <div class="art-foot">
+          <small>Кормовая добавка AllerCat. Не является лекарственным средством.</small>
+          <button class="btn btn-p" id="artBuy" type="button">Купить — 2&nbsp;690&nbsp;₽</button>
+          <button class="btn btn-s" id="artClose2" type="button">Закрыть</button>
+        </div>`;
+      document.getElementById('artModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      document.getElementById('artClose').onclick  = closeArticle;
+      document.getElementById('artClose2').onclick = closeArticle;
+      document.getElementById('artBuy').onclick = () => { closeArticle(); addToCart(); };
+    }
+    function closeArticle() {
+      document.getElementById('artModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('artModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('artModal')) closeArticle();
+    });
+
+    CARDS.forEach((c) => {
+      c.addEventListener('click', () => openArticle(parseInt(c.dataset.idx)));
+    });
+
+    // ─── CART ────────────────────────────────────────────────
+    let cart = [];
+    const drawer   = document.getElementById('drawer');
+    const backdrop = document.getElementById('backdrop');
+
+    function openDrawer()  { drawer.classList.add('open');    backdrop.classList.add('open'); }
+    function closeDrawer() { drawer.classList.remove('open'); backdrop.classList.remove('open'); }
+
+    document.getElementById('cartBtn').addEventListener('click', openDrawer);
+    document.getElementById('drawerClose').addEventListener('click', closeDrawer);
+    backdrop.addEventListener('click', closeDrawer);
+
+    function addToCart() {
+      const existing = cart.find((i) => i.id === 'allercat');
+      if (existing) existing.qty++;
+      else cart.push({ id: 'allercat', name: 'AllerCat 100 г', price: 2690, qty: 1 });
+      renderCart();
+      showToast('Добавлено в корзину');
+    }
+    document.getElementById('buyBtn').addEventListener('click', () => { addToCart(); openDrawer(); });
+
+    function renderCart() {
+      const count = cart.reduce((s, i) => s + i.qty, 0);
+      document.getElementById('cartCount').textContent = count;
+      const body = document.getElementById('drawerBody');
+      if (!cart.length) {
+        body.innerHTML = '<div class="drawer-empty">Корзина пуста<br/><small>Добавьте AllerCat, чтобы продолжить</small></div>';
+        document.getElementById('drawerTotal').textContent = '0 ₽';
+        return;
+      }
+      body.innerHTML = cart.map((item, idx) => `
+        <div class="cart-item">
+          <div class="ci-img bg-img bg-jar"></div>
+          <div class="ci-info"><strong>${item.name}</strong><small>${item.qty} шт × ${item.price.toLocaleString('ru')} ₽</small></div>
+          <div>
+            <div class="ci-price">${(item.qty * item.price).toLocaleString('ru')} ₽</div>
+            <button style="font-size:.75rem;color:var(--muted);margin-top:4px" data-rm="${idx}" type="button">удалить</button>
+          </div>
+        </div>`).join('');
+      body.querySelectorAll('[data-rm]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          cart.splice(parseInt(btn.dataset.rm), 1);
+          renderCart();
+        });
+      });
+      const total = cart.reduce((s, i) => s + i.qty * i.price, 0);
+      document.getElementById('drawerTotal').textContent = total.toLocaleString('ru') + ' ₽';
+    }
+
+    // ─── TOAST ───────────────────────────────────────────────
+    let toastT;
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = '✓ ' + msg;
+      t.classList.add('show');
+      clearTimeout(toastT);
+      toastT = setTimeout(() => t.classList.remove('show'), 2400);
+    }
+
+    // ─── SLIDER ──────────────────────────────────────────────
+    const track = document.getElementById('sliderTrack');
+    let slIdx = 0;
+    const SLIDE_W = 320;
+
+    function updateSlider() {
+      if (!track) return;
+      const max = track.children.length - Math.floor(track.parentElement.offsetWidth / SLIDE_W);
+      slIdx = Math.max(0, Math.min(slIdx, max));
+      track.style.transform = `translateX(-${slIdx * SLIDE_W}px)`;
+    }
+    const slNext = document.getElementById('slNext');
+    const slPrev = document.getElementById('slPrev');
+    if (slNext) slNext.addEventListener('click', () => { slIdx++; updateSlider(); });
+    if (slPrev) slPrev.addEventListener('click', () => { slIdx = Math.max(0, slIdx - 1); updateSlider(); });
+    window.addEventListener('resize', updateSlider);
+
+    // ─── SCROLL REVEAL ───────────────────────────────────────
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('on'); });
+    }, { threshold: 0.05 });
+    document.querySelectorAll('.reveal,.stagger').forEach((el) => obs.observe(el));
+    setTimeout(() => {
+      document.querySelectorAll('.reveal,.stagger').forEach((el) => el.classList.add('on'));
+    }, 400);
+  </script>
+
 </BaseLayout>
