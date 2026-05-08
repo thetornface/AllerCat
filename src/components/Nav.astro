@@ -14,27 +14,23 @@ const cartHref = isHome ? '#buy' : '/#buy';
     <div class="nav-links" id="navLinks">
       <a href={link('#facts')}>Интересные факты</a>
       <a href={link('#how')}>Как работает</a>
-      <a href={link('#buy')}>Купить</a>
+      <a href={link('#buy')}>Предзаказ</a>
     </div>
 
     <div class="nav-right">
       {isHome ? (
-        <button class="nav-cart" id="cartBtn" type="button" aria-label="Корзина">
+        <button class="nav-cart" id="cartBtn" type="button" aria-label="Оформить предзаказ">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-            <path d="M3 6h18"/>
-            <path d="M16 10a4 4 0 01-8 0"/>
+            <path d="M20 6L9 17l-5-5"/>
           </svg>
-          <span class="cart-badge" id="cartCount">0</span>
+          <span class="cart-badge">Предзаказ</span>
         </button>
       ) : (
-        <a class="nav-cart" href={cartHref} aria-label="Перейти к покупке">
+        <a class="nav-cart" href={cartHref} aria-label="Перейти к предзаказу">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-            <path d="M3 6h18"/>
-            <path d="M16 10a4 4 0 01-8 0"/>
+            <path d="M20 6L9 17l-5-5"/>
           </svg>
-          <span class="cart-badge">Купить</span>
+          <span class="cart-badge">Предзаказ</span>
         </a>
       )}
       <button class="mob-menu" id="mobMenu" type="button" aria-label="Меню">

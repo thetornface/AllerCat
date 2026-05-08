@@ -50,7 +50,7 @@ const shops = [
         <h1>Добавляйте <em>заботу</em><br/>в&nbsp;каждую миску</h1>
         <p class="hero-sub">AllerCat — порошковая добавка с&nbsp;IgY-антителами, которые связывают аллерген Fel&nbsp;d&nbsp;1 ещё в&nbsp;слюне кошки. По&nbsp;данным исследования Satyaraj&nbsp;et&nbsp;al., 2019 — среднее снижение активного Fel&nbsp;d&nbsp;1 на&nbsp;шерсти на&nbsp;47% уже к&nbsp;3-й&nbsp;неделе.</p>
         <div class="hero-cta">
-          <a href="#buy" class="btn btn-p">Купить — 2&nbsp;690&nbsp;₽</a>
+          <button id="heroPreorderBtn" type="button" class="btn btn-p">Оформить предзаказ</button>
           <a href="#facts" class="btn btn-ghost">Интересные факты</a>
         </div>
       </div>
@@ -204,9 +204,10 @@ const shops = [
               <span class="price-badge">−16%</span>
             </div>
             <div style="display:flex;gap:12px;margin-bottom:32px;flex-wrap:wrap">
-              <button class="btn btn-p" id="buyBtn" type="button">В корзину</button>
-              <a class="btn btn-s" href="#facts">Подробнее</a>
+              <button class="btn btn-p" id="buyBtn" type="button">Оформить предзаказ</button>
+              <button class="btn btn-s" id="detailsBtn" type="button">Подробнее</button>
             </div>
+            {/* Маркетплейсы временно скрыты — пригодятся, когда продукт выйдет в продажу.
             <p style="color:var(--muted);font-size:.88rem;margin-bottom:16px;font-weight:600">🛒 Купить в маркетплейсах:</p>
             <div class="buy-shops">
               {shops.map((s) => (
@@ -216,6 +217,7 @@ const shops = [
                 </div>
               ))}
             </div>
+            */}
           </div>
           <div class="buy-img reveal">
             <div class="bg-img bg-cat"></div>
@@ -235,6 +237,81 @@ const shops = [
     </div>
   </div>
 
+  <!-- PRODUCT DETAILS MODAL -->
+  <div class="info-modal" id="infoModal" aria-hidden="true">
+    <div class="info-inner" role="dialog" aria-modal="true" aria-labelledby="infoTitle">
+      <button class="info-close" id="infoClose" type="button" aria-label="Закрыть">✕</button>
+      <span class="info-eyebrow">Кратко о продукте</span>
+      <h2 id="infoTitle">AllerCat 100&nbsp;г — курс на месяц</h2>
+      <p>Порошковая кормовая добавка с&nbsp;IgY-антителами против Fel&nbsp;d&nbsp;1 — главного аллергена кошек, содержащегося в&nbsp;слюне. Антитела связывают молекулы аллергена ещё в&nbsp;пасти животного и&nbsp;помогают снижать его активную форму на&nbsp;шерсти.</p>
+
+      <h3>Состав</h3>
+      <p>Сушёный яичный желток с&nbsp;анти-Fel&nbsp;d&nbsp;1 IgY-антителами, без вкусовых добавок. Не содержит лекарственных веществ.</p>
+
+      <h3>Как применять</h3>
+      <ul>
+        <li>Полчайной ложки на&nbsp;1&nbsp;кг веса кошки в&nbsp;день.</li>
+        <li>Смешать с&nbsp;привычным сухим или влажным кормом.</li>
+        <li>Применять ежедневно — пропуски снижают эффект.</li>
+        <li>Первые изменения обычно заметны к&nbsp;3-й неделе, устойчивый эффект — к&nbsp;6-й.</li>
+      </ul>
+
+      <h3>Кому подходит</h3>
+      <ul>
+        <li>Семьям с&nbsp;чувствительностью к&nbsp;кошачьему аллергену.</li>
+        <li>Тем, кто не&nbsp;хочет купать кошку и&nbsp;использовать спреи.</li>
+        <li>Любым здоровым кошкам — продукт безопасен и&nbsp;не&nbsp;влияет на&nbsp;вкус корма.</li>
+      </ul>
+
+      <p class="info-foot">Не&nbsp;является лекарственным средством. Перед применением желательно проконсультироваться с&nbsp;ветеринаром.</p>
+
+      <div class="info-actions">
+        <button class="btn btn-p" id="infoPreorderBtn" type="button">Оформить предзаказ</button>
+        <button class="btn btn-s" id="infoClose2" type="button">Закрыть</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PREORDER MODAL -->
+  <div class="preorder-modal" id="preorderModal" aria-hidden="true">
+    <div class="preorder-inner" role="dialog" aria-modal="true" aria-labelledby="preorderTitle">
+      <button class="preorder-close" id="preorderClose" type="button" aria-label="Закрыть">✕</button>
+      <span class="preorder-eyebrow">Предзаказ</span>
+      <h2 id="preorderTitle">Скоро будет доступно</h2>
+      <p class="preorder-lead">AllerCat ещё&nbsp;не в&nbsp;открытой продаже. Оставьте контакты — мы напишем первыми, как только продукт появится.</p>
+
+      <form id="preorderForm" class="preorder-form" novalidate>
+        <label class="preorder-field">
+          <span>Имя</span>
+          <input type="text" name="name" id="prName" autocomplete="given-name" placeholder="Как к вам обращаться" required />
+        </label>
+        <label class="preorder-field">
+          <span>Почта или телефон</span>
+          <input type="text" name="contact" id="prContact" autocomplete="email" placeholder="example@mail.ru или +7…" required />
+        </label>
+        <label class="preorder-field">
+          <span>Ссылка на соцсети <em>(необязательно)</em></span>
+          <input type="text" name="social" id="prSocial" placeholder="t.me/, instagram.com/…" />
+        </label>
+
+        <p class="preorder-consent">
+          Отправляя форму, вы соглашаетесь с&nbsp;<a href="/privacy" target="_blank" rel="noopener">политикой конфиденциальности</a> и&nbsp;<a href="/consent" target="_blank" rel="noopener">обработкой персональных данных</a>.
+        </p>
+
+        <div class="preorder-error" id="preorderError" hidden></div>
+
+        <button class="btn btn-p preorder-submit" id="preorderSubmit" type="submit">Оформить предзаказ</button>
+      </form>
+
+      <div class="preorder-success" id="preorderSuccess" hidden>
+        <div class="preorder-success-emoji">🐾</div>
+        <h3>Спасибо!</h3>
+        <p>Ваша заявка получена. Мы свяжемся с вами, как только AllerCat появится в&nbsp;продаже.</p>
+        <button class="btn btn-s" id="preorderDone" type="button">Закрыть</button>
+      </div>
+    </div>
+  </div>
+
   <!-- CART DRAWER -->
   <div class="backdrop" id="backdrop"></div>
   <aside class="drawer" id="drawer" aria-label="Корзина">
@@ -247,7 +324,7 @@ const shops = [
     </div>
     <div class="drawer-foot">
       <div class="drawer-total"><span>Итого</span><span id="drawerTotal">0&nbsp;₽</span></div>
-      <button class="btn btn-p" style="width:100%;justify-content:center" type="button">Оформить заказ</button>
+      <button class="btn btn-p" id="drawerCheckoutBtn" style="width:100%;justify-content:center" type="button">Оформить предзаказ</button>
     </div>
   </aside>
 
@@ -324,7 +401,7 @@ const shops = [
         </div>
         <div class="art-foot">
           <small>Кормовая добавка AllerCat. Не является лекарственным средством.</small>
-          <button class="btn btn-p" id="artBuy" type="button">Купить — 2&nbsp;690&nbsp;₽</button>
+          <button class="btn btn-p" id="artBuy" type="button">Оформить предзаказ</button>
           <button class="btn btn-s" id="artClose2" type="button">Закрыть</button>
         </div>`;
       document.getElementById('artModal').classList.add('open');
@@ -345,54 +422,111 @@ const shops = [
       c.addEventListener('click', () => openArticle(parseInt(c.dataset.idx)));
     });
 
-    // ─── CART ────────────────────────────────────────────────
-    let cart = [];
+    // ─── PRODUCT INFO MODAL ──────────────────────────────────
+    const infoModal = document.getElementById('infoModal');
+    function openInfo()  { infoModal.classList.add('open');    infoModal.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; }
+    function closeInfo() { infoModal.classList.remove('open'); infoModal.setAttribute('aria-hidden', 'true');  document.body.style.overflow = ''; }
+    document.getElementById('detailsBtn')?.addEventListener('click', openInfo);
+    document.getElementById('infoClose')?.addEventListener('click', closeInfo);
+    document.getElementById('infoClose2')?.addEventListener('click', closeInfo);
+    infoModal?.addEventListener('click', (e) => { if (e.target === infoModal) closeInfo(); });
+
+    // ─── PREORDER MODAL ──────────────────────────────────────
+    /**
+     * Replace this URL with the deployed Google Apps Script Web App
+     * endpoint (see docs/apps-script/README.md).
+     * If left as the placeholder, the form posts nowhere and just
+     * shows a polite "не настроено" error.
+     */
+    const PREORDER_ENDPOINT = 'https://script.google.com/macros/s/REPLACE_WITH_YOUR_DEPLOYMENT_ID/exec';
+
+    const preorderModal = document.getElementById('preorderModal');
+    const preorderForm = document.getElementById('preorderForm');
+    const preorderSuccess = document.getElementById('preorderSuccess');
+    const preorderError = document.getElementById('preorderError');
+    const preorderSubmit = document.getElementById('preorderSubmit');
+
+    function openPreorder() {
+      preorderForm.hidden = false;
+      preorderSuccess.hidden = true;
+      preorderError.hidden = true;
+      preorderError.textContent = '';
+      preorderModal.classList.add('open');
+      preorderModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => document.getElementById('prName')?.focus(), 80);
+    }
+    function closePreorder() {
+      preorderModal.classList.remove('open');
+      preorderModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('preorderClose')?.addEventListener('click', closePreorder);
+    document.getElementById('preorderDone')?.addEventListener('click', closePreorder);
+    preorderModal?.addEventListener('click', (e) => { if (e.target === preorderModal) closePreorder(); });
+
+    document.getElementById('heroPreorderBtn')?.addEventListener('click', openPreorder);
+    document.getElementById('buyBtn')?.addEventListener('click', openPreorder);
+    document.getElementById('infoPreorderBtn')?.addEventListener('click', () => { closeInfo(); openPreorder(); });
+    document.getElementById('drawerCheckoutBtn')?.addEventListener('click', () => { closeDrawer(); openPreorder(); });
+
+    preorderForm?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      preorderError.hidden = true;
+      preorderError.textContent = '';
+
+      const name    = document.getElementById('prName').value.trim();
+      const contact = document.getElementById('prContact').value.trim();
+      const social  = document.getElementById('prSocial').value.trim();
+
+      if (!name)    { preorderError.textContent = 'Укажите, как к вам обращаться.';     preorderError.hidden = false; return; }
+      if (!contact) { preorderError.textContent = 'Оставьте почту или телефон для связи.'; preorderError.hidden = false; return; }
+
+      preorderSubmit.disabled = true;
+      preorderSubmit.textContent = 'Отправляем…';
+
+      const payload = {
+        name,
+        contact,
+        social,
+        page: window.location.href,
+        userAgent: navigator.userAgent,
+        ts: new Date().toISOString(),
+      };
+
+      try {
+        if (!PREORDER_ENDPOINT.includes('REPLACE_WITH_YOUR_DEPLOYMENT_ID')) {
+          // text/plain avoids CORS preflight against Apps Script
+          await fetch(PREORDER_ENDPOINT, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify(payload),
+          });
+        } else {
+          console.warn('[preorder] PREORDER_ENDPOINT не настроен. Заявка не отправлена.', payload);
+        }
+        preorderForm.hidden = true;
+        preorderSuccess.hidden = false;
+        preorderForm.reset();
+      } catch (err) {
+        console.error(err);
+        preorderError.textContent = 'Не удалось отправить. Попробуйте позже или напишите в Telegram @AllerCat.';
+        preorderError.hidden = false;
+      } finally {
+        preorderSubmit.disabled = false;
+        preorderSubmit.textContent = 'Оформить предзаказ';
+      }
+    });
+
+    // ─── CART (vestigial) ────────────────────────────────────
     const drawer   = document.getElementById('drawer');
     const backdrop = document.getElementById('backdrop');
-
-    function openDrawer()  { drawer.classList.add('open');    backdrop.classList.add('open'); }
-    function closeDrawer() { drawer.classList.remove('open'); backdrop.classList.remove('open'); }
-
-    document.getElementById('cartBtn').addEventListener('click', openDrawer);
-    document.getElementById('drawerClose').addEventListener('click', closeDrawer);
-    backdrop.addEventListener('click', closeDrawer);
-
-    function addToCart() {
-      const existing = cart.find((i) => i.id === 'allercat');
-      if (existing) existing.qty++;
-      else cart.push({ id: 'allercat', name: 'AllerCat 100 г', price: 2690, qty: 1 });
-      renderCart();
-      showToast('Добавлено в корзину');
-    }
-    document.getElementById('buyBtn').addEventListener('click', () => { addToCart(); openDrawer(); });
-
-    function renderCart() {
-      const count = cart.reduce((s, i) => s + i.qty, 0);
-      document.getElementById('cartCount').textContent = count;
-      const body = document.getElementById('drawerBody');
-      if (!cart.length) {
-        body.innerHTML = '<div class="drawer-empty">Корзина пуста<br/><small>Добавьте AllerCat, чтобы продолжить</small></div>';
-        document.getElementById('drawerTotal').textContent = '0 ₽';
-        return;
-      }
-      body.innerHTML = cart.map((item, idx) => `
-        <div class="cart-item">
-          <div class="ci-img bg-img bg-jar"></div>
-          <div class="ci-info"><strong>${item.name}</strong><small>${item.qty} шт × ${item.price.toLocaleString('ru')} ₽</small></div>
-          <div>
-            <div class="ci-price">${(item.qty * item.price).toLocaleString('ru')} ₽</div>
-            <button style="font-size:.75rem;color:var(--muted);margin-top:4px" data-rm="${idx}" type="button">удалить</button>
-          </div>
-        </div>`).join('');
-      body.querySelectorAll('[data-rm]').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          cart.splice(parseInt(btn.dataset.rm), 1);
-          renderCart();
-        });
-      });
-      const total = cart.reduce((s, i) => s + i.qty * i.price, 0);
-      document.getElementById('drawerTotal').textContent = total.toLocaleString('ru') + ' ₽';
-    }
+    function openDrawer()  { drawer?.classList.add('open');    backdrop?.classList.add('open'); }
+    function closeDrawer() { drawer?.classList.remove('open'); backdrop?.classList.remove('open'); }
+    document.getElementById('cartBtn')?.addEventListener('click', openPreorder);
+    document.getElementById('drawerClose')?.addEventListener('click', closeDrawer);
+    backdrop?.addEventListener('click', closeDrawer);
 
     // ─── TOAST ───────────────────────────────────────────────
     let toastT;
