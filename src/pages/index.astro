@@ -312,22 +312,6 @@ const shops = [
     </div>
   </div>
 
-  <!-- CART DRAWER -->
-  <div class="backdrop" id="backdrop"></div>
-  <aside class="drawer" id="drawer" aria-label="Корзина">
-    <div class="drawer-head">
-      <h3>Корзина</h3>
-      <button class="drawer-close" id="drawerClose" type="button" aria-label="Закрыть">✕</button>
-    </div>
-    <div class="drawer-body" id="drawerBody">
-      <div class="drawer-empty">Корзина пуста<br/><small>Добавьте AllerCat, чтобы продолжить</small></div>
-    </div>
-    <div class="drawer-foot">
-      <div class="drawer-total"><span>Итого</span><span id="drawerTotal">0&nbsp;₽</span></div>
-      <button class="btn btn-p" id="drawerCheckoutBtn" style="width:100%;justify-content:center" type="button">Оформить предзаказ</button>
-    </div>
-  </aside>
-
   <div class="toast" id="toast"></div>
 
   <script is:inline define:vars={{ facts }}>
@@ -468,7 +452,7 @@ const shops = [
     document.getElementById('heroPreorderBtn')?.addEventListener('click', openPreorder);
     document.getElementById('buyBtn')?.addEventListener('click', openPreorder);
     document.getElementById('infoPreorderBtn')?.addEventListener('click', () => { closeInfo(); openPreorder(); });
-    document.getElementById('drawerCheckoutBtn')?.addEventListener('click', () => { closeDrawer(); openPreorder(); });
+    document.getElementById('cartBtn')?.addEventListener('click', openPreorder);
 
     preorderForm?.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -481,6 +465,15 @@ const shops = [
 
       if (!name)    { preorderError.textContent = 'Укажите, как к вам обращаться.';     preorderError.hidden = false; return; }
       if (!contact) { preorderError.textContent = 'Оставьте почту или телефон для связи.'; preorderError.hidden = false; return; }
+
+      // Soft sanity check: contact must look like email OR contain ≥6 digits.
+      const looksLikeEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact);
+      const digitCount     = (contact.match(/\d/g) || []).length;
+      if (!looksLikeEmail && digitCount < 6) {
+        preorderError.textContent = 'Похоже, контакт указан не полностью. Проверьте email или телефон.';
+        preorderError.hidden = false;
+        return;
+      }
 
       preorderSubmit.disabled = true;
       preorderSubmit.textContent = 'Отправляем…';
@@ -519,14 +512,13 @@ const shops = [
       }
     });
 
-    // ─── CART (vestigial) ────────────────────────────────────
-    const drawer   = document.getElementById('drawer');
-    const backdrop = document.getElementById('backdrop');
-    function openDrawer()  { drawer?.classList.add('open');    backdrop?.classList.add('open'); }
-    function closeDrawer() { drawer?.classList.remove('open'); backdrop?.classList.remove('open'); }
-    document.getElementById('cartBtn')?.addEventListener('click', openPreorder);
-    document.getElementById('drawerClose')?.addEventListener('click', closeDrawer);
-    backdrop?.addEventListener('click', closeDrawer);
+    // ─── ESC TO CLOSE MODALS ─────────────────────────────────
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      if (preorderModal?.classList.contains('open'))      closePreorder();
+      else if (infoModal?.classList.contains('open'))     closeInfo();
+      else if (document.getElementById('artModal')?.classList.contains('open')) closeArticle();
+    });
 
     // ─── TOAST ───────────────────────────────────────────────
     let toastT;
