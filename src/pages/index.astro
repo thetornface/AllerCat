@@ -5,7 +5,6 @@ import Footer from '@components/Footer.astro';
 import { getEntry } from 'astro:content';
 import facts from '../data/facts.json';
 import slides from '../data/slides.json';
-import { ICONS } from '../lib/icons';
 
 const homeEntry = await getEntry('home', 'home');
 const data = homeEntry!.data;
@@ -122,7 +121,14 @@ const shops = [
               <div class="fact-card" data-cat={card.cat} data-time={card.time} data-idx={card.idx}>
                 <div class="card-img">
                   <div class={`card-img-inner ${card.bg}`}>
-                    <Fragment set:html={ICONS[card.icon] ?? ''} />
+                    <img
+                      src={`/assets/images/cards/${card.icon}.webp`}
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                      width="800"
+                      height="800"
+                    />
                   </div>
                   <span class="card-num">Факт №{card.idx + 1}</span>
                 </div>
@@ -160,7 +166,14 @@ const shops = [
           {slides.map((s) => (
             <div class="slide-card">
               <div class={`slide-img ${s.bg}`}>
-                <Fragment set:html={ICONS[s.icon] ?? ''} />
+                <img
+                  src={`/assets/images/cards/${s.icon}.webp`}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  width="800"
+                  height="800"
+                />
               </div>
               <div class="slide-body">
                 <h4>{s.title}</h4>
@@ -240,7 +253,7 @@ const shops = [
 
   <div class="toast" id="toast"></div>
 
-  <script is:inline define:vars={{ facts, ICONS }}>
+  <script is:inline define:vars={{ facts }}>
     // Cards interactivity
     const CARDS = Array.from(document.querySelectorAll('.fact-card'));
 
@@ -291,29 +304,14 @@ const shops = [
     }
 
     // ─── ARTICLE MODAL ────────────────────────────────────────
-    const bgGradients = {
-      bg1:  'linear-gradient(135deg, #F5EDD6 0%, #E8C27A 100%)',
-      bg2:  'linear-gradient(135deg, #E8F0E8 0%, #8BA888 100%)',
-      bg3:  'linear-gradient(135deg, #FDE8E0 0%, #C4694F 100%)',
-      bg4:  'linear-gradient(135deg, #EFE3C0 0%, #D4A843 100%)',
-      bg5:  'linear-gradient(135deg, #E8F0E8 0%, #6B8A68 100%)',
-      bg6:  'linear-gradient(135deg, #F5EDD6 0%, #9A6B45 100%)',
-      bg7:  'linear-gradient(135deg, #F5EDD6 0%, #C4694F 100%)',
-      bg8:  'linear-gradient(135deg, #E8F4EE 0%, #6B8A68 100%)',
-      bg9:  'linear-gradient(135deg, #FBF0E0 0%, #B8892A 100%)',
-      bg10: 'linear-gradient(135deg, #F5EDD6 0%, #7B4F2E 100%)',
-      bg11: 'linear-gradient(135deg, #FDE8E0 0%, #A5553E 100%)',
-      bg12: 'linear-gradient(135deg, #EFE3C0 0%, #6B8A68 100%)',
-    };
-
     function openArticle(idx) {
       const a = facts[idx];
       if (!a) return;
       const inner = document.getElementById('artInner');
       inner.innerHTML = `
-        <div class="art-hero" style="background:${bgGradients[a.bg] || bgGradients.bg1}">
+        <div class="art-hero">
+          <img class="art-hero-img" src="/assets/images/cards/${a.icon}.webp" alt="" loading="eager" decoding="async" />
           <button class="art-close-btn" id="artClose" type="button" aria-label="Закрыть">✕</button>
-          <div class="art-hero-emoji">${ICONS[a.icon] || ''}</div>
           <div class="art-meta">
             <span class="art-cat-badge">${a.catIcon} ${a.catLabel}</span>
             <span class="art-time-badge">⏱ ${a.time} мин чтения</span>
