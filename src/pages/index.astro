@@ -392,7 +392,7 @@ const shops = [
       document.body.style.overflow = 'hidden';
       document.getElementById('artClose').onclick  = closeArticle;
       document.getElementById('artClose2').onclick = closeArticle;
-      document.getElementById('artBuy').onclick = () => { closeArticle(); addToCart(); };
+      document.getElementById('artBuy').onclick = () => { closeArticle(); openPreorder(); };
     }
     function closeArticle() {
       document.getElementById('artModal').classList.remove('open');
