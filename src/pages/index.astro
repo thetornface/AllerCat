@@ -417,12 +417,12 @@ const shops = [
 
     // ─── PREORDER MODAL ──────────────────────────────────────
     /**
-     * Replace this URL with the deployed Google Apps Script Web App
-     * endpoint (see docs/apps-script/README.md).
-     * If left as the placeholder, the form posts nowhere and just
-     * shows a polite "не настроено" error.
+     * Google Apps Script Web App endpoint that appends rows to the
+     * preorders spreadsheet. Source script + setup steps live in
+     * docs/apps-script/. Redeployment URL changes only when a fresh
+     * deployment is created (not on code-only redeploys).
      */
-    const PREORDER_ENDPOINT = 'https://script.google.com/macros/s/REPLACE_WITH_YOUR_DEPLOYMENT_ID/exec';
+    const PREORDER_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxYMQd1NbTbB7zu3tfrRVUk98VtF1sqxFliR1HRy2zzHm3cG-mvyZXQGgV4d-RDRj0P/exec';
 
     const preorderModal = document.getElementById('preorderModal');
     const preorderForm = document.getElementById('preorderForm');
