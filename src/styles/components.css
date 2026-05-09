@@ -177,6 +177,60 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
+.fact-card.is-collapsed {
+  display: none;
+}
+
+/* ── MORE FACTS BUTTON ───────────────────────────────── */
+.more-facts-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 36px;
+}
+.more-facts-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 28px;
+  background: var(--cream-soft);
+  border: 1.5px solid var(--cream-deep);
+  border-radius: 999px;
+  color: var(--brown);
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+  box-shadow: 0 4px 14px rgba(123, 79, 46, 0.08);
+}
+.more-facts-btn:hover {
+  background: var(--brown);
+  color: var(--cream);
+  border-color: var(--brown);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(123, 79, 46, 0.18);
+}
+.more-facts-btn svg {
+  transition: transform 0.25s ease;
+}
+.more-facts-btn:hover svg {
+  transform: translateY(2px);
+}
+.more-facts-count {
+  background: var(--terra);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 2px 9px;
+  border-radius: 999px;
+  min-width: 22px;
+  text-align: center;
+  line-height: 1.4;
+}
+.more-facts-btn:hover .more-facts-count {
+  background: var(--gold);
+  color: var(--ink);
+}
 @media (max-width: 1000px) {
   .cards-grid { grid-template-columns: repeat(2, 1fr); }
 }

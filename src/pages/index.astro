@@ -118,7 +118,7 @@ const shops = [
         <div class="wrap">
           <div class="cards-grid stagger" id="cardsGrid">
             {facts.map((card) => (
-              <div class="fact-card" data-cat={card.cat} data-time={card.time} data-idx={card.idx}>
+              <div class={`fact-card${card.idx >= 3 ? ' is-collapsed' : ''}`} data-cat={card.cat} data-time={card.time} data-idx={card.idx}>
                 <div class="card-img">
                   <div class={`card-img-inner ${card.bg}`}>
                     <img
@@ -143,6 +143,16 @@ const shops = [
                 </div>
               </div>
             ))}
+          </div>
+
+          <div class="more-facts-wrap" id="moreFactsWrap">
+            <button class="more-facts-btn" id="moreFactsBtn" type="button">
+              Показать ещё факты
+              <span class="more-facts-count" id="moreFactsCount">{facts.length - 3}</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </button>
           </div>
 
           <div id="noResults" class="no-results" style="display:none">
@@ -320,8 +330,22 @@ const shops = [
 
     // ─── FILTERS ─────────────────────────────────────────────
     let activeCat = 'all', activeTime = 'all', searchQ = '';
+    let isExpanded = false;
+    const moreFactsWrap = document.getElementById('moreFactsWrap');
+    const moreFactsBtn  = document.getElementById('moreFactsBtn');
+
+    function expandFacts() {
+      if (isExpanded) return;
+      isExpanded = true;
+      CARDS.forEach((c) => c.classList.remove('is-collapsed'));
+      if (moreFactsWrap) moreFactsWrap.style.display = 'none';
+    }
 
     function filterCards() {
+      // Any non-default filter or search forces full grid.
+      const filtersActive = activeCat !== 'all' || activeTime !== 'all' || !!searchQ;
+      if (filtersActive) expandFacts();
+
       let any = false;
       CARDS.forEach((c) => {
         const cat = c.dataset.cat;
@@ -337,6 +361,8 @@ const shops = [
       const noResults = document.getElementById('noResults');
       if (noResults) noResults.style.display = any ? 'none' : 'block';
     }
+
+    moreFactsBtn?.addEventListener('click', expandFacts);
 
     document.querySelectorAll('.cat-btn').forEach((b) => {
       b.addEventListener('click', () => {
