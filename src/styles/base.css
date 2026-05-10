@@ -23,6 +23,11 @@ img, svg {
   display: block;
 }
 
+/* Ensure HTML `hidden` attribute always wins over component `display` rules. */
+[hidden] {
+  display: none !important;
+}
+
 button {
   font-family: inherit;
   cursor: pointer;
