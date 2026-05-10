@@ -22,7 +22,7 @@ const catFilters = [
   { ico: '🐱', label: 'Кошки',         value: 'cats' },
   { ico: '🔬', label: 'Наука',         value: 'science' },
   { ico: '🏠', label: 'Жизнь с кошкой', value: 'lifestyle' },
-  { ico: '💊', label: 'Лечение',       value: 'treatment' },
+  { ico: '💊', label: 'Облегчение',    value: 'treatment' },
 ];
 
 const shops = [
@@ -36,8 +36,8 @@ const shops = [
 ---
 
 <BaseLayout
-  title="AllerCat — Живите с кошкой. Без аллергии."
-  description="AllerCat — российская кормовая добавка на основе IgY-антител. Помогает снижать активный аллерген Fel d 1 на шерсти кошки — в среднем на 47% к 3-й неделе ежедневного применения (Satyaraj et al., 2019)."
+  title="AllerCat — Живите с кошкой. Спокойнее."
+  description="AllerCat — российская добавка для обогащения корма на основе IgY-антител. По данным независимого исследования Satyaraj et al. (2019, n=105) — наблюдалось снижение активного аллергена Fel d 1 на шерсти в среднем на 47% к 3-й неделе ежедневного применения. Не является лекарственным препаратом."
 >
   <Nav />
 
@@ -48,7 +48,7 @@ const shops = [
       <div class="hero-inner">
         <span class="hero-badge">🇷🇺 Российский бренд · IgY-технология</span>
         <h1>Добавляйте <em>заботу</em><br/>в&nbsp;каждую миску</h1>
-        <p class="hero-sub">AllerCat — порошковая добавка с&nbsp;IgY-антителами, которые связывают аллерген Fel&nbsp;d&nbsp;1 ещё в&nbsp;слюне кошки. По&nbsp;данным исследования Satyaraj&nbsp;et&nbsp;al., 2019 — среднее снижение активного Fel&nbsp;d&nbsp;1 на&nbsp;шерсти на&nbsp;47% уже к&nbsp;3-й&nbsp;неделе.</p>
+        <p class="hero-sub">AllerCat — добавка для&nbsp;обогащения корма с&nbsp;IgY-антителами, которые взаимодействуют с&nbsp;белком Fel&nbsp;d&nbsp;1 в&nbsp;слюне кошки. По&nbsp;данным независимого исследования Satyaraj&nbsp;et&nbsp;al. (Immunity, Inflammation and Disease, 2019, 7(2):68–73, n=105), у&nbsp;кошек, получавших корм с&nbsp;анти-Fel&nbsp;d&nbsp;1 IgY, наблюдалось снижение активного аллергена на&nbsp;шерсти в&nbsp;среднем на&nbsp;47% к&nbsp;3-й&nbsp;неделе ежедневного применения.</p>
         <div class="hero-cta">
           <button id="heroPreorderBtn" type="button" class="btn btn-p">Оформить предзаказ</button>
           <a href="#facts" class="btn btn-ghost">Интересные факты</a>
@@ -61,7 +61,7 @@ const shops = [
         </div>
         <div class="hero-img-wrap center">
           <div class="bg-img bg-cat"></div>
-          <span class="hero-img-label">−47% к 3-й неделе</span>
+          <span class="hero-img-label">−47%&nbsp;·&nbsp;Satyaraj 2019</span>
         </div>
         <div class="hero-img-wrap">
           <div class="bg-img bg-jar"></div>
@@ -73,13 +73,13 @@ const shops = [
     <!-- STATS STRIP -->
     <div class="strip">
       <div class="strip-inner">
-        <div class="strip-stat"><div class="num">−47%</div><div class="lbl">аллергена в среднем (3 нед.)</div></div>
+        <div class="strip-stat"><div class="num">−47%</div><div class="lbl">по данным Satyaraj et al., 2019</div></div>
         <div class="strip-div"></div>
-        <div class="strip-stat"><div class="num">3–6</div><div class="lbl">недель до устойчивого эффекта</div></div>
+        <div class="strip-stat"><div class="num">3–6</div><div class="lbl">недель ежедневного применения</div></div>
         <div class="strip-div"></div>
-        <div class="strip-stat"><div class="num">127</div><div class="lbl">довольных семей</div></div>
+        <div class="strip-stat"><div class="num">4</div><div class="lbl">белка-аллергена кошки в фокусе</div></div>
         <div class="strip-div"></div>
-        <div class="strip-stat"><div class="num">100%</div><div class="lbl">натуральный состав</div></div>
+        <div class="strip-stat"><div class="num">100%</div><div class="lbl">натуральный состав на основе яичного белка</div></div>
       </div>
     </div>
 
@@ -164,6 +164,51 @@ const shops = [
       </div>
     </section>
 
+    <!-- FAQ -->
+    <section class="faq-section" id="faq">
+      <div class="wrap">
+        <div class="faq-head reveal">
+          <span class="eyebrow">FAQ</span>
+          <h2>Частые вопросы</h2>
+          <p>Если ответа на ваш вопрос нет — напишите нам в Telegram <a href="https://t.me/AllerCat" target="_blank" rel="noopener">@AllerCat</a>.</p>
+        </div>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>Это лекарство?</summary>
+            <p>Нет, AllerCat не является лекарственным или ветеринарным препаратом. Это пищевая добавка для обогащения рациона домашних кошек.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Это вылечит мою аллергию?</summary>
+            <p>Нет, AllerCat не лечит аллергию у человека. Продукт работает иначе — взаимодействует с белком Fel d 1 в слюне кошки до того, как тот попадёт на шерсть. При тяжёлой форме аллергии обязательно проконсультируйтесь с врачом-аллергологом.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Это безопасно для моего кота?</summary>
+            <p>Да. IgY-антитела специфичны к белку Fel d 1 и не взаимодействуют с другими белками организма кошки. Безопасность IgY-ингредиента подтверждена EFSA (Q-2006-061) и FDA (GRN 000842).</p>
+          </details>
+          <details class="faq-item">
+            <summary>Когда наступит эффект?</summary>
+            <p>По данным независимого исследования Satyaraj et al. (2019, n=105 кошек), у большинства животных первые изменения наблюдались к 3-й неделе ежедневного применения. Индивидуальный отклик варьируется.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Что делать, если эффект не проявился?</summary>
+            <p>Действует наша <a href="/refund">гарантия возврата 60 дней</a> без объяснения причин. Биология индивидуальна — у части кошек активный отклик не наступает, и это нормально.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Можно ли давать котёнку или старой кошке?</summary>
+            <p>AllerCat подходит для кошек старше 6 месяцев. Дозировка зависит от веса. Для котят младше 6 месяцев и кошек с хроническими заболеваниями рекомендуем предварительно посоветоваться с ветеринарным врачом.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Кто стоит за брендом?</summary>
+            <p>AllerCat основан Дмитрием Даниловым — выпускником МФТИ, автором магистерской работы по теме снижения аллергенов кошек (2024–2026). Идея родилась из личной истории — брат с аллергией и любимый кот Барсик. Команда российская, ELISA-валидация партий — в лаборатории МФТИ.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Откуда сырьё?</summary>
+            <p>IgY-порошок — высушенный яичный желток от кур, иммунизированных рекомбинантным белком Fel d 1. Контрактное производство в Китае, ELISA-валидация активности на каждую партию в лаборатории МФТИ. COA доступен по запросу.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
     <!-- SLIDER (how it works) -->
     <section class="slider-section" id="how">
       <div class="slider-label reveal">
@@ -207,7 +252,8 @@ const shops = [
         <div class="buy-inner">
           <div class="buy-text reveal">
             <h2>AllerCat 100&nbsp;г — курс на&nbsp;месяц</h2>
-            <p>Порошковая кормовая добавка с&nbsp;IgY-антителами. Связывает аллерген Fel&nbsp;d&nbsp;1 ещё в&nbsp;слюне кошки и&nbsp;помогает снижать его активный уровень на&nbsp;шерсти — без влияния на&nbsp;вкус корма и&nbsp;самочувствие животного.</p>
+            <p>Натуральная добавка для&nbsp;обогащения корма с&nbsp;IgY-антителами. Взаимодействует с&nbsp;белком Fel&nbsp;d&nbsp;1 в&nbsp;слюне кошки и&nbsp;способствует снижению его активного уровня на&nbsp;шерсти — без влияния на&nbsp;вкус корма и&nbsp;самочувствие животного.</p>
+            <p class="buy-claim">Натуральный комплекс компонентов AllerCat взаимодействует с&nbsp;<strong>четырьмя основными белками-аллергенами кошки: Fel&nbsp;d&nbsp;1, Fel&nbsp;d&nbsp;2, Fel&nbsp;d&nbsp;4 и&nbsp;Fel&nbsp;d&nbsp;7</strong>. При&nbsp;регулярном применении формула способствует снижению активности этих белков на&nbsp;шерсти и&nbsp;частицах кожного покрова. Это&nbsp;помогает поддерживать более комфортную домашнюю обстановку для&nbsp;совместного проживания кошки и&nbsp;её&nbsp;владельцев.</p>
             <div class="buy-price">
               <span class="price-big">2&nbsp;690&nbsp;₽</span>
               <span class="price-old">3&nbsp;200&nbsp;₽</span>
@@ -253,27 +299,31 @@ const shops = [
       <button class="info-close" id="infoClose" type="button" aria-label="Закрыть">✕</button>
       <span class="info-eyebrow">Кратко о продукте</span>
       <h2 id="infoTitle">AllerCat 100&nbsp;г — курс на месяц</h2>
-      <p>Порошковая кормовая добавка с&nbsp;IgY-антителами против Fel&nbsp;d&nbsp;1 — главного аллергена кошек, содержащегося в&nbsp;слюне. Антитела связывают молекулы аллергена ещё в&nbsp;пасти животного и&nbsp;помогают снижать его активную форму на&nbsp;шерсти.</p>
+      <p>Натуральная добавка для&nbsp;обогащения корма с&nbsp;IgY-антителами. Взаимодействует с&nbsp;белком Fel&nbsp;d&nbsp;1 в&nbsp;слюне кошки и&nbsp;способствует снижению его активного уровня на&nbsp;шерсти.</p>
+      <p>Натуральный комплекс компонентов AllerCat взаимодействует с&nbsp;<strong>четырьмя основными белками-аллергенами кошки: Fel&nbsp;d&nbsp;1, Fel&nbsp;d&nbsp;2, Fel&nbsp;d&nbsp;4 и&nbsp;Fel&nbsp;d&nbsp;7</strong>. При&nbsp;регулярном применении формула способствует снижению активности этих белков на&nbsp;шерсти и&nbsp;частицах кожного покрова, что&nbsp;помогает поддерживать более комфортную домашнюю обстановку.</p>
 
       <h3>Состав</h3>
-      <p>Сушёный яичный желток с&nbsp;анти-Fel&nbsp;d&nbsp;1 IgY-антителами, без вкусовых добавок. Не содержит лекарственных веществ.</p>
+      <p>Сушёный яичный желток с&nbsp;анти-Fel&nbsp;d&nbsp;1 IgY-антителами, без вкусовых добавок и&nbsp;консервантов.</p>
 
       <h3>Как применять</h3>
       <ul>
-        <li>Полчайной ложки на&nbsp;1&nbsp;кг веса кошки в&nbsp;день.</li>
+        <li>Половина чайной ложки на&nbsp;1&nbsp;кг веса кошки в&nbsp;день.</li>
         <li>Смешать с&nbsp;привычным сухим или влажным кормом.</li>
         <li>Применять ежедневно — пропуски снижают эффект.</li>
-        <li>Первые изменения обычно заметны к&nbsp;3-й неделе, устойчивый эффект — к&nbsp;6-й.</li>
+        <li>Первые изменения у&nbsp;большинства кошек наблюдаются к&nbsp;3-й&nbsp;неделе, устойчивый отклик — к&nbsp;6-й. Индивидуальный отклик варьируется.</li>
       </ul>
 
       <h3>Кому подходит</h3>
       <ul>
         <li>Семьям с&nbsp;чувствительностью к&nbsp;кошачьему аллергену.</li>
         <li>Тем, кто не&nbsp;хочет купать кошку и&nbsp;использовать спреи.</li>
-        <li>Любым здоровым кошкам — продукт безопасен и&nbsp;не&nbsp;влияет на&nbsp;вкус корма.</li>
+        <li>Здоровым кошкам старше 6&nbsp;месяцев — продукт безопасен и&nbsp;не&nbsp;влияет на&nbsp;вкус корма.</li>
       </ul>
 
-      <p class="info-foot">Не&nbsp;является лекарственным средством. Перед применением желательно проконсультироваться с&nbsp;ветеринаром.</p>
+      <h3>Безопасность</h3>
+      <p>Безопасность IgY-ингредиента подтверждена европейским агентством EFSA (Q-2006-061) и&nbsp;американским FDA (GRAS Notice GRN&nbsp;000842). Дополнительная ELISA-валидация активности проводится для&nbsp;каждой партии в&nbsp;лаборатории МФТИ.</p>
+
+      <p class="info-foot">AllerCat — добавка для&nbsp;обогащения корма домашних кошек. Не&nbsp;является лекарственным или ветеринарным препаратом. Не&nbsp;предназначена для&nbsp;лечения аллергии у&nbsp;человека. Перед применением рекомендуется проконсультироваться с&nbsp;ветеринарным врачом. Индивидуальный отклик варьируется.</p>
 
       <div class="info-actions">
         <button class="btn btn-p" id="infoPreorderBtn" type="button">Оформить предзаказ</button>
@@ -304,13 +354,14 @@ const shops = [
           <input type="text" name="social" id="prSocial" placeholder="t.me/, instagram.com/…" />
         </label>
 
-        <p class="preorder-consent">
-          Отправляя форму, вы соглашаетесь с&nbsp;<a href="/privacy" target="_blank" rel="noopener">политикой конфиденциальности</a> и&nbsp;<a href="/consent" target="_blank" rel="noopener">обработкой персональных данных</a>.
-        </p>
+        <label class="preorder-consent-row">
+          <input type="checkbox" id="prConsent" required />
+          <span>Я даю согласие на&nbsp;обработку моих персональных данных в&nbsp;соответствии с&nbsp;<a href="/privacy" target="_blank" rel="noopener">Политикой обработки персональных данных</a>.</span>
+        </label>
 
         <div class="preorder-error" id="preorderError" hidden></div>
 
-        <button class="btn btn-p preorder-submit" id="preorderSubmit" type="submit">Оформить предзаказ</button>
+        <button class="btn btn-p preorder-submit" id="preorderSubmit" type="submit" disabled>Оформить предзаказ</button>
       </form>
 
       <div class="preorder-success" id="preorderSuccess" hidden>
@@ -461,6 +512,7 @@ const shops = [
       preorderSuccess.hidden = true;
       preorderError.hidden = true;
       preorderError.textContent = '';
+      preorderSubmit.disabled = !document.getElementById('prConsent')?.checked;
       preorderModal.classList.add('open');
       preorderModal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
@@ -479,6 +531,12 @@ const shops = [
     document.getElementById('buyBtn')?.addEventListener('click', openPreorder);
     document.getElementById('infoPreorderBtn')?.addEventListener('click', () => { closeInfo(); openPreorder(); });
     document.getElementById('cartBtn')?.addEventListener('click', openPreorder);
+
+    // Submit only enabled when consent checkbox is ticked.
+    const consentCheckbox = document.getElementById('prConsent');
+    consentCheckbox?.addEventListener('change', () => {
+      preorderSubmit.disabled = !consentCheckbox.checked;
+    });
 
     preorderForm?.addEventListener('submit', async (e) => {
       e.preventDefault();

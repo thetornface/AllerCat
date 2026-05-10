@@ -6,6 +6,7 @@ interface Contact {
 }
 
 const { contact }: { contact: Contact } = Astro.props;
+const supportEmail = 'drdanilov1999@gmail.com';
 ---
 
 <footer class="footer">
@@ -13,7 +14,7 @@ const { contact }: { contact: Contact } = Astro.props;
     <div class="footer-grid">
       <div class="footer-logo">
         <div class="bg-logo" role="img" aria-label="AllerCat"></div>
-        <p>Российская кормовая добавка для кошек, снижающая аллерген Fel d1 на основе IgY-антител. Живите с кошкой — без аллергии.</p>
+        <p>Российская добавка для обогащения корма кошек на основе IgY-антител. Живите с кошкой — спокойнее.</p>
         <div class="footer-social">
           {contact.telegram && (
             <a class="soc" href={contact.telegram} target="_blank" rel="noopener" aria-label="Telegram">
@@ -22,14 +23,12 @@ const { contact }: { contact: Contact } = Astro.props;
               </svg>
             </a>
           )}
-          {contact.email && (
-            <a class="soc" href={`mailto:${contact.email}`} aria-label="Email">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="3" y="5" width="18" height="14" rx="2"/>
-                <path d="M3 7l9 6 9-6"/>
-              </svg>
-            </a>
-          )}
+          <a class="soc" href={`mailto:${supportEmail}`} aria-label="Email">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="5" width="18" height="14" rx="2"/>
+              <path d="M3 7l9 6 9-6"/>
+            </svg>
+          </a>
           {contact.youtube && (
             <a class="soc" href={contact.youtube} target="_blank" rel="noopener" aria-label="YouTube">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -44,18 +43,19 @@ const { contact }: { contact: Contact } = Astro.props;
         <h5>Продукт</h5>
         <ul>
           <li><a href="/#how">Как работает</a></li>
-          <li><a href="/#buy">Предзаказ</a></li>
           <li><a href="/#facts">Факты</a></li>
-          <li><a href="/seller">О продавце</a></li>
+          <li><a href="/#faq">FAQ</a></li>
+          <li><a href="/#buy">Предзаказ</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
         <h5>Клиентам</h5>
         <ul>
-          <li><a href="/offer">Оферта</a></li>
+          <li><a href="/oferta">Оферта</a></li>
+          <li><a href="/refund">Гарантия 60 дней</a></li>
           <li><a href="/returns">Возврат</a></li>
-          <li><a href="/terms">Соглашение</a></li>
+          <li><a href="/privacy">Политика ПД</a></li>
           <li><a href="/cookies">Cookies</a></li>
         </ul>
       </div>
@@ -63,18 +63,27 @@ const { contact }: { contact: Contact } = Astro.props;
       <div class="footer-col">
         <h5>Контакты</h5>
         <ul>
-          {contact.email && <li>{contact.email}</li>}
+          <li><a href={`mailto:${supportEmail}`}>{supportEmail}</a></li>
           {contact.telegram && (
             <li><a href={contact.telegram} target="_blank" rel="noopener">{contact.telegram.replace('https://t.me/', '@')}</a></li>
           )}
-          <li>Ежедневно 9:00–21:00</li>
-          <li><a href="/privacy">Политика конф.</a></li>
+          <li>Ежедневно 9:00–21:00 (МСК)</li>
         </ul>
       </div>
     </div>
 
+    <p class="footer-disclaimer">
+      AllerCat — добавка для обогащения корма домашних кошек. Не является лекарственным или ветеринарным препаратом. Не предназначена для лечения аллергии у человека. Перед применением рекомендуется проконсультироваться с ветеринарным врачом. Индивидуальный отклик варьируется.
+    </p>
+
+    <div class="footer-requisites">
+      <p><strong>ИП Данилов Дмитрий Романович</strong></p>
+      <p>ИНН и ОГРНИП появятся после регистрации ИП (в процессе оформления первого заказа).</p>
+      <p>Email: <a href={`mailto:${supportEmail}`}>{supportEmail}</a> · Telegram: <a href="https://t.me/AllerCat" target="_blank" rel="noopener">@AllerCat</a></p>
+    </div>
+
     <div class="footer-bottom">
-      © {new Date().getFullYear()} AllerCat. Кормовая добавка. Не является лекарственным средством. Перед применением проконсультируйтесь с ветеринаром.
+      © {new Date().getFullYear()} AllerCat. Все права защищены.
     </div>
   </div>
 </footer>

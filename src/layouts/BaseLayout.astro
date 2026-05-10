@@ -2,8 +2,8 @@
 import '../styles/global.css';
 
 const {
-  title = 'AllerCat — Живите с кошкой. Без аллергии.',
-  description = 'AllerCat — российская кормовая добавка на основе IgY-антител. Помогает снижать активный Fel d 1 — главный кошачий аллерген — на шерсти и в воздухе при ежедневном применении.',
+  title = 'AllerCat — Живите с кошкой. Спокойнее.',
+  description = 'AllerCat — российская добавка для обогащения корма кошек на основе IgY-антител. Не является лекарственным препаратом.',
   ogImage = '/assets/images/og-image.jpg',
   noIndex = false,
 } = Astro.props;
@@ -47,5 +47,37 @@ const ogImageAbsolute = ogImage.startsWith('http') ? ogImage : `${siteOrigin}${o
   <body>
     <a class="skip-link" href="#content">Перейти к содержимому</a>
     <slot />
+
+    <!-- COOKIE BANNER -->
+    <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Согласие на cookies" hidden>
+      <div class="cookie-text">
+        🍪 Сайт использует cookies для&nbsp;аналитики и&nbsp;улучшения работы. Продолжая использование, вы&nbsp;соглашаетесь с&nbsp;<a href="/cookies">Политикой обработки cookies</a>.
+      </div>
+      <div class="cookie-actions">
+        <button type="button" class="cookie-btn cookie-btn-secondary" id="cookieMin">Только необходимые</button>
+        <button type="button" class="cookie-btn cookie-btn-primary" id="cookieAll">Принять</button>
+      </div>
+    </div>
+
+    <script is:inline>
+      (function () {
+        const KEY = 'allercat-cookie-consent';
+        const banner = document.getElementById('cookieBanner');
+        if (!banner) return;
+        const stored = localStorage.getItem(KEY);
+        if (!stored) {
+          banner.hidden = false;
+        }
+        function persist(value) {
+          try { localStorage.setItem(KEY, value); } catch (_) { /* ignore quota / private mode */ }
+          banner.hidden = true;
+          // Hook for future analytics gating: check window.allercatCookieConsent === 'all'
+          window.allercatCookieConsent = value;
+          window.dispatchEvent(new CustomEvent('allercat:cookie-consent', { detail: value }));
+        }
+        document.getElementById('cookieAll')?.addEventListener('click', () => persist('all'));
+        document.getElementById('cookieMin')?.addEventListener('click', () => persist('necessary'));
+      })();
+    </script>
   </body>
 </html>
