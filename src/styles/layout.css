@@ -164,22 +164,6 @@
   padding: 0 28px;
 }
 
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 7px 16px;
-  background: rgba(212, 168, 67, 0.2);
-  border: 1px solid rgba(212, 168, 67, 0.4);
-  color: var(--gold);
-  border-radius: 999px;
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  margin-bottom: 28px;
-}
-
 .hero h1 {
   color: var(--cream);
   max-width: 780px;
@@ -219,19 +203,6 @@
 .hero-cta .btn-p:hover {
   animation: none;
   box-shadow: 0 16px 40px rgba(196, 105, 79, 0.55);
-}
-.hero-cta .btn-ghost {
-  padding: 14px 24px;
-  font-size: 0.92rem;
-  background: rgba(245, 237, 214, 0.14);
-  color: var(--cream);
-  border: 1.5px solid rgba(245, 237, 214, 0.35);
-  backdrop-filter: blur(6px);
-  font-weight: 600;
-}
-.hero-cta .btn-ghost:hover {
-  background: rgba(245, 237, 214, 0.22);
-  border-color: rgba(245, 237, 214, 0.55);
 }
 @keyframes heroCtaPulse {
   0%, 100% {

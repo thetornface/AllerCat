@@ -46,12 +46,10 @@ const shops = [
     <!-- HERO -->
     <section class="hero">
       <div class="hero-inner">
-        <span class="hero-badge">🇷🇺 Российский бренд · IgY-технология</span>
         <h1>Добавляйте <em>заботу</em><br/>в&nbsp;каждую миску</h1>
         <p class="hero-sub">AllerCat — добавка для&nbsp;обогащения корма с&nbsp;IgY-антителами, которые взаимодействуют с&nbsp;белком Fel&nbsp;d&nbsp;1 в&nbsp;слюне кошки. По&nbsp;данным независимого исследования Satyaraj&nbsp;et&nbsp;al. (Immunity, Inflammation and Disease, 2019, 7(2):68–73, n=105), у&nbsp;кошек, получавших корм с&nbsp;анти-Fel&nbsp;d&nbsp;1 IgY, наблюдалось снижение активного аллергена на&nbsp;шерсти в&nbsp;среднем на&nbsp;47% к&nbsp;3-й&nbsp;неделе ежедневного применения.</p>
         <div class="hero-cta">
           <button id="heroPreorderBtn" type="button" class="btn btn-p">Оформить предзаказ</button>
-          <a href="#facts" class="btn btn-ghost">Интересные факты</a>
         </div>
       </div>
       <div class="hero-imgs">
@@ -630,6 +628,23 @@ const shops = [
     if (slNext) slNext.addEventListener('click', () => { slIdx++; updateSlider(); });
     if (slPrev) slPrev.addEventListener('click', () => { slIdx = Math.max(0, slIdx - 1); updateSlider(); });
     window.addEventListener('resize', updateSlider);
+
+    // ─── HERO CAROUSEL CENTERING (mobile only) ───────────────
+    // On mobile the .hero-imgs wrap turns into a horizontal snap-scroll lane.
+    // Make the central tile (the lineup) the one that's visible on first paint
+    // and after orientation flips.
+    const heroImgs = document.querySelector('.hero-imgs');
+    const heroCenter = heroImgs?.querySelector('.hero-img-wrap.center');
+    const mobileQuery = window.matchMedia('(max-width: 720px)');
+    function centerHeroTile(animate) {
+      if (!heroImgs || !heroCenter || !mobileQuery.matches) return;
+      const target = heroCenter.offsetLeft - (heroImgs.clientWidth - heroCenter.offsetWidth) / 2;
+      heroImgs.scrollTo({ left: target, behavior: animate ? 'smooth' : 'instant' });
+    }
+    centerHeroTile(false);
+    window.addEventListener('load', () => centerHeroTile(false));
+    window.addEventListener('resize', () => centerHeroTile(false));
+    if (mobileQuery.addEventListener) mobileQuery.addEventListener('change', () => centerHeroTile(false));
 
     // ─── SCROLL REVEAL ───────────────────────────────────────
     const obs = new IntersectionObserver((entries) => {
