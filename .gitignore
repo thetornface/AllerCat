@@ -5,3 +5,8 @@ dist/
 
 # Card image originals — only the optimized .webp files ship.
 public/assets/images/cards/*.png
+
+# Hero / product photo originals — only the optimized .webp files ship.
+public/assets/images/*.png
+public/assets/images/*.jpeg
+!public/assets/images/og-image.jpg

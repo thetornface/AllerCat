@@ -102,8 +102,11 @@ input, textarea, select {
   background-repeat: no-repeat;
   border-radius: 10px;
 }
-.bg-jar { background-image: var(--img-jar); }
-.bg-cat { background-image: var(--img-cat); }
+.bg-jar    { background-image: var(--img-jar); }
+.bg-cat    { background-image: var(--img-cat); }
+.bg-paw    { background-image: var(--img-paw); }
+.bg-lineup { background-image: var(--img-lineup); }
+.bg-lid    { background-image: var(--img-jar-lid); }
 
 /* Reveal animations */
 .reveal {

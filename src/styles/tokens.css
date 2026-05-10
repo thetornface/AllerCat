@@ -31,9 +31,12 @@
   --sans:  'Manrope', system-ui, -apple-system, sans-serif;
 
   /* Image refs (real files in public/) */
-  --img-logo: url("/assets/images/logo.svg");
-  --img-jar:  url("/assets/images/jar.jpg");
-  --img-cat:  url("/assets/images/cat.jpg");
+  --img-logo:    url("/assets/images/logo.svg");
+  --img-jar:     url("/assets/images/hero-jar.webp");
+  --img-cat:     url("/assets/images/lineup.webp");
+  --img-paw:     url("/assets/images/hero-paw.webp");
+  --img-lineup:  url("/assets/images/lineup.webp");
+  --img-jar-lid: url("/assets/images/jar-lid.webp");
 
   /* Layout */
   --container-width: 1280px;
