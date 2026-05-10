@@ -450,16 +450,17 @@
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    scroll-padding-inline: 20px;
   }
   .slider-track-wrap::-webkit-scrollbar { display: none; }
   .slider-track {
     transform: none !important; /* JS slider disabled on touch */
     transition: none;
-    padding: 0 20px;
+    /* Padding equal to half the gap between viewport edge and card,
+       so the snapped card sits centered with equal peek of neighbours. */
+    padding: 0 max(16px, calc(50% - 150px));
   }
   .slide-card {
-    scroll-snap-align: start;
+    scroll-snap-align: center;
   }
   .slider-nav { display: none; }
 }
@@ -467,15 +468,18 @@
 .slide-card {
   width: 300px;
   flex-shrink: 0;
-  background: rgba(245, 237, 214, 0.08);
-  border: 1px solid rgba(245, 237, 214, 0.12);
+  background: rgba(245, 237, 214, 0.14);
+  border: 1px solid rgba(245, 237, 214, 0.25);
   border-radius: var(--rl);
   overflow: hidden;
-  transition: 0.2s;
+  transition: 0.25s ease;
+  box-shadow: 0 8px 24px rgba(45, 31, 21, 0.18);
 }
 .slide-card:hover {
-  background: rgba(245, 237, 214, 0.14);
+  background: rgba(245, 237, 214, 0.2);
+  border-color: rgba(245, 237, 214, 0.4);
   transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(45, 31, 21, 0.28);
 }
 .slide-img {
   height: 160px;
@@ -506,9 +510,9 @@
   font-weight: 600;
 }
 .slide-body p {
-  font-size: 0.83rem;
-  color: rgba(245, 237, 214, 0.65);
-  line-height: 1.5;
+  font-size: 0.86rem;
+  color: rgba(245, 237, 214, 0.85);
+  line-height: 1.55;
 }
 .slide-tag {
   display: inline-block;
