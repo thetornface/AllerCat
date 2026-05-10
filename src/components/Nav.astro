@@ -20,18 +20,20 @@ const cartHref = isHome ? '#buy' : '/#buy';
 
     <div class="nav-right">
       {isHome ? (
-        <button class="nav-cart" id="cartBtn" type="button" aria-label="Оформить предзаказ">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 6L9 17l-5-5"/>
+        <button class="nav-cta" id="cartBtn" type="button">
+          <span>Предзаказ</span>
+          <svg class="nav-cta-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14"/>
+            <path d="M13 6l6 6-6 6"/>
           </svg>
-          <span class="cart-badge">Предзаказ</span>
         </button>
       ) : (
-        <a class="nav-cart" href={cartHref} aria-label="Перейти к предзаказу">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 6L9 17l-5-5"/>
+        <a class="nav-cta" href={cartHref}>
+          <span>Предзаказ</span>
+          <svg class="nav-cta-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14"/>
+            <path d="M13 6l6 6-6 6"/>
           </svg>
-          <span class="cart-badge">Предзаказ</span>
         </a>
       )}
       <button class="mob-menu" id="mobMenu" type="button" aria-label="Меню">
