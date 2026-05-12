@@ -21,7 +21,7 @@
 .nav-logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 16px;
   text-decoration: none;
 }
 .nav-logo-mark {
@@ -33,7 +33,7 @@
 }
 .nav-logo-text {
   font-family: var(--serif);
-  font-size: 1.35rem;
+  font-size: 1.65rem;
   font-weight: 800;
   color: var(--brown);
   letter-spacing: -0.02em;
@@ -132,7 +132,7 @@
     height: 42px;
   }
   .nav-logo-text {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
   }
   .nav-cta {
     padding: 8px 14px;
