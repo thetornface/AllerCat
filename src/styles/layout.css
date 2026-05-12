@@ -21,24 +21,13 @@
 .nav-logo {
   display: flex;
   align-items: center;
-  gap: 8px;
   text-decoration: none;
 }
-.nav-logo img {
-  height: 44px;
+.nav-logo-mark {
+  height: 52px;
+  width: auto;
+  display: block;
   border-radius: 10px;
-}
-.nav-logo .bg-logo {
-  width: 44px;
-  height: 44px;
-}
-.nav-logo-text {
-  font-family: var(--serif);
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: var(--brown);
-  letter-spacing: -0.02em;
-  line-height: 1;
 }
 
 .nav-links {
@@ -129,12 +118,8 @@
 }
 
 @media (max-width: 480px) {
-  .nav-logo .bg-logo {
-    width: 36px;
-    height: 36px;
-  }
-  .nav-logo-text {
-    font-size: 1.05rem;
+  .nav-logo-mark {
+    height: 42px;
   }
   .nav-cta {
     padding: 8px 14px;
@@ -515,11 +500,13 @@
   gap: 40px;
   margin-bottom: 48px;
 }
-.footer-logo .bg-logo {
-  height: 44px;
-  width: 120px;
-  background-color: rgba(245, 237, 214, 0.08);
-  margin-bottom: 14px;
+.footer-logo-mark {
+  display: block;
+  height: 84px;
+  width: auto;
+  border-radius: 14px;
+  margin-bottom: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
 }
 .footer-logo p {
   font-size: 0.88rem;

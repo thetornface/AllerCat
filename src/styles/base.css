@@ -94,14 +94,6 @@ input, textarea, select {
   background-position: center;
   background-repeat: no-repeat;
 }
-.bg-logo {
-  width: 120px;
-  height: 44px;
-  background-image: var(--img-logo);
-  background-size: contain;
-  background-repeat: no-repeat;
-  border-radius: 10px;
-}
 .bg-jar    { background-image: var(--img-jar); }
 .bg-cat    { background-image: var(--img-cat); }
 .bg-paw    { background-image: var(--img-paw); }
