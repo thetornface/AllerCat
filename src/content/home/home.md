@@ -6,8 +6,11 @@ description: "AllerCat — ежедневная добавка к корму, к
 productType: "Кормовая добавка для кошек"
 weight: "100 г"
 duration: "30 дней применения"
-price: "2 690 ₽"
-priceNote: "1 банка = 30 дней применения"
+price: "2 990 ₽"
+priceOld: "3 490 ₽"
+priceDiscount: "−14%"
+priceSubscription: "2 690 ₽/мес"
+priceNote: "1 банка = 30 дней применения. По подписке — 2 690 ₽/мес, первым 100 клиентам цена закрепляется навсегда."
 cta:
   label: "Заказать AllerCat"
   href: "#order"

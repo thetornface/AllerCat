@@ -359,7 +359,65 @@
   display: flex;
   align-items: baseline;
   gap: 14px;
+  margin-bottom: 16px;
+}
+
+/* Subscription perk — pill block under the main price.
+   Uses terracotta-on-cream-50 per design spec. */
+.buy-subscribe {
+  display: inline-block;
+  max-width: 100%;
+  background: #C45A2D;
+  color: #FFF8E8;
+  padding: 14px 20px;
+  border-radius: 22px;
   margin-bottom: 28px;
+  box-shadow: 0 6px 18px rgba(196, 90, 45, 0.22);
+}
+.buy-subscribe-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+.buy-subscribe-tag {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: rgba(255, 248, 232, 0.18);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+.buy-subscribe-price {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+.buy-subscribe p {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: rgba(255, 248, 232, 0.92);
+  margin: 0;
+}
+
+.buy-actions {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
+  .buy-subscribe {
+    display: block;
+    padding: 14px 18px;
+  }
+  .buy-subscribe-price {
+    font-size: 1.25rem;
+  }
 }
 .price-big {
   font-family: var(--serif);
